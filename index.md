@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: ARIARS.COM
 permalink: /
@@ -71,6 +71,125 @@ hide_header_footer: true
     width: min(820px, 86vw);
     height: auto;
     overflow: visible;
+  }
+
+  /* Post-menu Center-Bottom 4-Sprite Scene (524 x 226 exact pixel composition) */
+  .home-scene {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 524px;
+    height: 226px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 6;
+  }
+
+  .sprite-mover {
+    position: absolute;
+    opacity: 0;
+    filter: blur(18px);
+    transform: translateX(-110vw);
+    will-change: transform, opacity, filter;
+  }
+
+  /* Exact pixel positions inside the 524x226 composition */
+  .sprite-mover--1 {
+    left: 327px;
+    top: 43px;
+    width: 197px;
+    height: 95px;
+    z-index: 1;
+    animation: slideLeftToCenter 1.45s cubic-bezier(0.16, 1, 0.3, 1) 5.65s forwards;
+  }
+
+  .sprite-mover--2 {
+    left: 0px;
+    top: 0px;
+    width: 174px;
+    height: 138px;
+    z-index: 2;
+    animation: slideLeftToCenter 1.32s cubic-bezier(0.16, 1, 0.3, 1) 5.58s forwards;
+  }
+
+  .sprite-mover--3 {
+    left: 95px;
+    top: 62px;
+    width: 334px;
+    height: 164px;
+    z-index: 3;
+    animation: slideLeftToCenter 1.12s cubic-bezier(0.16, 1, 0.3, 1) 5.45s forwards;
+  }
+
+  .sprite-mover--4 {
+    left: 197px;
+    top: 12px;
+    width: 107px;
+    height: 214px;
+    z-index: 4;
+    animation: slideLeftToCenter 1.22s cubic-bezier(0.16, 1, 0.3, 1) 5.52s forwards;
+  }
+
+  @keyframes slideLeftToCenter {
+    0% {
+      opacity: 0;
+      filter: blur(18px);
+      transform: translateX(-100vw);
+    }
+    20% {
+      opacity: 1;
+      filter: blur(14px);
+    }
+    75% {
+      opacity: 1;
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateX(0);
+    }
+  }
+
+  .sprite-mover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Continuous gentle motion for 1 (right wing) and 2 (left wing) */
+  .wing-float-1 {
+    transform-origin: 10% 85%;
+    animation: gentleWingRight 3.6s ease-in-out 6.8s infinite alternate;
+  }
+
+  .wing-float-2 {
+    transform-origin: 90% 85%;
+    animation: gentleWingLeft 3.2s ease-in-out 6.7s infinite alternate;
+  }
+
+  @keyframes gentleWingRight {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    50% {
+      transform: translate(2px, -3.5px) rotate(-2.2deg);
+    }
+    100% {
+      transform: translate(-1.5px, 2.5px) rotate(1.8deg);
+    }
+  }
+
+  @keyframes gentleWingLeft {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    50% {
+      transform: translate(-2px, -4px) rotate(2.4deg);
+    }
+    100% {
+      transform: translate(1.5px, 2.5px) rotate(-1.6deg);
+    }
   }
 
   /* 2. Bottom Bar Area */
@@ -270,7 +389,7 @@ hide_header_footer: true
           <!-- Vertical gradient from bottom (y1="100%") to top (y2="0%") of the text bounding box -->
           <linearGradient id="bottomToTopFill" x1="0%" y1="100%" x2="0%" y2="0%" gradientUnits="objectBoundingBox">
             <stop id="fill-white-stop" offset="0%" stop-color="#ffffff" />
-            <stop id="fill-grey-stop" offset="0%" stop-color="#4a4a4a" />
+            <stop id="fill-grey-stop" offset="0%" stop-color="#222222" />
           </linearGradient>
         </defs>
         <text x="50%" y="92"
@@ -281,6 +400,22 @@ hide_header_footer: true
               font-weight="400"
               letter-spacing="3">ARIARS.COM</text>
       </svg>
+    </div>
+
+    <!-- Post-menu 4-Sprite Scene (slides in from left with staggered speeds, wings 1 & 2 gently sway) -->
+    <div class="home-scene" aria-hidden="true">
+      <div class="sprite-mover sprite-mover--1">
+        <img class="wing-float-1" src="{{ '/assets/images/home/movie_1-1.png' | relative_url }}" alt="">
+      </div>
+      <div class="sprite-mover sprite-mover--2">
+        <img class="wing-float-2" src="{{ '/assets/images/home/movie_1-2.png' | relative_url }}" alt="">
+      </div>
+      <div class="sprite-mover sprite-mover--3">
+        <img src="{{ '/assets/images/home/movie_1-3.png' | relative_url }}" alt="">
+      </div>
+      <div class="sprite-mover sprite-mover--4">
+        <img src="{{ '/assets/images/home/movie_1-4.png' | relative_url }}" alt="">
+      </div>
     </div>
   </div>
 
