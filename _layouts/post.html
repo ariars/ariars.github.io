@@ -1,0 +1,194 @@
+﻿---
+layout: default
+---
+
+<!-- begin post -->
+<div class="container">
+  <div class="row">
+    <div class="col col-9 col-d-12">
+      <div class="post-container">
+        <div class="post-inner">
+
+          <div class="post-info">
+            <h1 class="post-title">{{ page.title }}</h1>
+
+            <div class="post-meta">
+              <span class="post-date">
+                <span class="post-label">Posted:</span> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %b, %Y" }}</time>
+              </span>
+              <span class="post-minutes">
+                <span class="post-label">Reading time:</span>
+                {% assign words = content | number_of_words %}
+                {% if words < 360 %}1 min{% else %}{{ words | divided_by: 180 }} min{% endif %}
+              </span>
+
+              {% if page.tags.size >= 1 %}
+              <div class="post-tags">
+                <span class="post-label">Tags:</span>
+                {% for tag in page.tags %}
+                <a href="{{ '/tags/?tag=' | append: tag | downcase | relative_url }}" class="post-tag">#{{ tag }}</a>
+                {% endfor %}
+              </div>
+              {% endif %}
+
+              <div class="post-bookmark">
+                <span class="post-label">Pin this post:</span>
+                <div class="bookmark-btn"
+                  data-id="{{ page.url | relative_url }}"
+                  data-title="{{ page.title | escape }}"
+                  data-desc="{{ page.description | default: page.excerpt | strip_html | truncate: 140 | escape }}"
+                  data-date="{{ page.date | date: '%d %B %Y' }}"
+                  data-image="{{ page.image | default: '/assets/images/09.jpg' | relative_url }}">
+                  <i class="fa-regular fa-bookmark"></i>
+                </div>
+              </div>
+            </div>
+
+            {% if page.description %}
+            <div class="post__description">{{ page.description }}</div>
+            {% endif %}
+
+            <div class="post-meta-bottom">
+              <div class="post-author">
+                <div class="post-author-head">
+                  <a href="{{ '/authors/' | relative_url }}" class="post-author-image img-wrap">
+                    <img class="lazy" data-src="{{ page.author_image | default: '/assets/images/101.jpg' | relative_url }}" alt="{{ page.author | default: 'Daniel Brooks' }}">
+                  </a>
+                </div>
+                <div class="post-author-box">
+                  <span>Written by</span>
+                  <div class="post-author-inner">
+                    <a class="post-author-name" href="{{ '/authors/' | relative_url }}">{{ page.author | default: 'Daniel Brooks' }}</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post__share">
+                <ul class="share__list list-reset">
+                  <li class="share__item">
+                    <a class="share__link share__twitter"
+                      href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | absolute_url }}"
+                      onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                      title="Share on Twitter" rel="nofollow"><i class="fa-brands fa-x-twitter"></i></a>
+                  </li>
+                  <li class="share__item">
+                    <a class="share__link share__facebook"
+                      href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url }}"
+                      onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                      title="Share on Facebook" rel="nofollow"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li class="share__item">
+                    <a class="share__link share__pinterest"
+                      href="http://pinterest.com/pin/create/button/?url={{ page.url | absolute_url }}&media={{ page.image | default: '/assets/images/09.jpg' | absolute_url }}&description={{ page.title | uri_escape }}"
+                      onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;"
+                      title="Share on Pinterest" rel="nofollow"><i class="fa-brands fa-pinterest"></i></a>
+                  </li>
+                  <li class="share__item">
+                    <a class="share__link share__linkedin"
+                      href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url }}&title={{ page.title | uri_escape }}"
+                      onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                      title="Share on LinkedIn" rel="nofollow"><i class="fa-brands fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {% if page.image %}
+          <div class="post-head">
+            <div class="post-image img-wrap">
+              <img class="lazy" data-src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+            </div>
+            {% if page.image_caption %}
+            <div class="post-image-caption">{{ page.image_caption }}</div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <article class="post">
+            <div class="post__content">
+              {{ content }}
+            </div>
+          </article>
+
+          <div class="card-author">
+            <div class="card-author__inner">
+              <div class="card-author__media">
+                <a class="card-author__image img-wrap" href="{{ '/authors/' | relative_url }}">
+                  <img class="lazy" data-src="{{ page.author_image | default: '/assets/images/101.jpg' | relative_url }}" alt="{{ page.author | default: 'Daniel Brooks' }}">
+                </a>
+              </div>
+              <div class="card-author__content">
+                <h3 class="card-author__name">
+                  <a href="{{ '/authors/' | relative_url }}" class="card-author__link">{{ page.author | default: 'Daniel Brooks' }}</a>
+                </h3>
+                <div class="card-author__meta">
+                  {{ page.author_role | default: 'Creative Director' }} <span class="dot">·</span> {{ page.author_location | default: 'Boston' }}
+                </div>
+                <div class="card-author__description">{{ page.author_bio | default: 'Shares perspectives on visual storytelling and long-term creative thinking.' }}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-3 col-d-12">
+      {% include sidebar.html %}
+    </div>
+  </div>
+</div>
+<!-- end post -->
+
+<!-- begin related posts -->
+<div class="container">
+  <div class="related-posts is-related">
+    <div class="section__info">
+      <div class="section__head">
+        <h2 class="section__title">Related</h2>
+      </div>
+    </div>
+    <div class="row grid">
+      {% for post in site.posts limit: 4 %}
+      <div class="article col col-3 col-d-6 col-t-12">
+        <div class="article__inner">
+          <div class="article__head">
+            <div class="article__icons">
+              <div class="bookmark-btn"
+                data-id="{{ post.url | relative_url }}"
+                data-title="{{ post.title | escape }}"
+                data-desc="{{ post.description | default: post.excerpt | strip_html | truncate: 140 | escape }}"
+                data-date="{{ post.date | date: '%d %B %Y' }}"
+                data-image="{{ post.image | default: '/assets/images/02.jpg' | relative_url }}">
+                <i class="fa-regular fa-bookmark"></i>
+              </div>
+            </div>
+            <a class="article__image img-wrap" href="{{ post.url | relative_url }}">
+              <img class="lazy" data-src="{{ post.image | default: '/assets/images/02.jpg' | relative_url }}" alt="{{ post.title }}">
+            </a>
+          </div>
+          <div class="article__content">
+            <h2 class="article__title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h2>
+            <div class="article__meta">
+              <time class="article__date" datetime="{{ post.date | date_to_xmlschema }}">Posted: {{ post.date | date: "%B %-d, %Y" }}</time>
+              {% if post.tags.size >= 1 %}
+              in
+              <div class="article__tags">
+                {% for tag in post.tags %}
+                <a href="{{ '/tags/?tag=' | append: tag | downcase | relative_url }}" class="article__tag">#{{ tag }}</a>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+            <p class="article__excerpt">{{ post.description | default: post.excerpt | strip_html }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- end related posts -->

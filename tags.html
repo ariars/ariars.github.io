@@ -1,0 +1,209 @@
+---
+layout: page
+title: Tag
+permalink: /tags/
+description: "태그별로 분류된 전체 글 인덱스와 요약 목록입니다."
+---
+
+<style>
+  .taxonomy__index {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 4px;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 44px 0 !important;
+  }
+  @media (max-width: 768px) {
+    .taxonomy__index {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .taxonomy__index {
+      grid-template-columns: 1fr;
+    }
+  }
+  .taxonomy__index li {
+    margin: 0 !important;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .taxonomy__index li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 4px;
+    color: var(--heading-font-color);
+    text-decoration: none !important;
+    border-bottom: none !important;
+    font-size: 15px;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+  }
+  .taxonomy__index li a:hover {
+    color: var(--primary-color);
+    padding-left: 8px;
+  }
+  .taxonomy__count {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-alt-color);
+    background: var(--background-color);
+    border: 1px solid var(--border-alt-color);
+    border-radius: 999px;
+    padding: 1px 9px;
+    line-height: 1.5;
+  }
+  .taxonomy__section {
+    margin-bottom: 44px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    scroll-margin-top: 100px;
+  }
+  .taxonomy__section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .page__content .taxonomy__section .archive__subtitle {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-alt-color);
+    font-size: 24px;
+    color: var(--heading-font-color);
+  }
+  .entries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .list__item .archive__item {
+    padding: 0;
+  }
+  .page__content .archive__item-title {
+    margin: 0 0 6px 0 !important;
+    font-size: 19px !important;
+    line-height: 1.4 !important;
+  }
+  .page__content .archive__item-title a {
+    color: var(--heading-font-color);
+    text-decoration: none !important;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .page__content .archive__item-title a:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+  .page__content .page__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px 0 !important;
+    font-size: 13px;
+    color: var(--text-alt-color);
+  }
+  .page__meta-date,
+  .page__meta-readtime {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .page__meta-sep::before {
+    content: "·";
+    color: var(--text-alt-color);
+  }
+  .page__content .archive__item-excerpt {
+    margin: 0 !important;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-alt-color);
+  }
+  .back-to-top {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-alt-color);
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+  .back-to-top:hover {
+    color: var(--heading-font-color);
+  }
+</style>
+
+<div id="tags-top"></div>
+
+{% assign tags_max = 0 %}
+{% for tag in site.tags %}
+  {% if tag[1].size > tags_max %}
+    {% assign tags_max = tag[1].size %}
+  {% endif %}
+{% endfor %}
+
+<ul class="taxonomy__index">
+  {% for i in (1..tags_max) reversed %}
+    {% for tag in site.tags %}
+      {% if tag[1].size == i %}
+        <li>
+          <a href="#{{ tag[0] | slugify }}">
+            <strong>{{ tag[0] }}</strong> <span class="taxonomy__count">{{ i }}</span>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</ul>
+
+{% for i in (1..tags_max) reversed %}
+  {% for tag in site.tags %}
+    {% if tag[1].size == i %}
+      <section id="{{ tag[0] | slugify }}" class="taxonomy__section">
+        <h2 class="archive__subtitle">{{ tag[0] }}</h2>
+        <div class="entries-list">
+          {% for post in tag[1] %}
+            {% assign words = post.content | strip_html | number_of_words %}
+            {% assign read_minutes = words | divided_by: 180 %}
+            {% if read_minutes < 1 %}{% assign read_minutes = 1 %}{% endif %}
+            <div class="list__item">
+              <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+                <h3 class="archive__item-title no_toc p-name" itemprop="headline">
+                  <a class="u-url" href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
+                </h3>
+                <p class="page__meta">
+                  <span class="page__meta-date">
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+                  </span>
+                  <span class="page__meta-sep"></span>
+                  <span class="page__meta-readtime">
+                    <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                    {{ read_minutes }} minute read
+                  </span>
+                </p>
+                <p class="archive__item-excerpt p-summary" itemprop="description">
+                  {{ post.description | default: post.excerpt | strip_html | truncate: 160 }}
+                </p>
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+        <a href="#tags-top" class="back-to-top">맨 위로 &uarr;</a>
+      </section>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    const tagParam = params.get("tag");
+    if (tagParam) {
+      const target = document.getElementById(tagParam.toLowerCase());
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  });
+</script>

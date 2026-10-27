@@ -1,65 +1,377 @@
----
+﻿---
 layout: default
-title: Hello, we’re Shodo 👋
-description: A quiet place on the internet for writing, design, and thoughtful ideas.
+title: ARIARS.COM
+permalink: /
+hide_header_footer: true
 ---
 
-<section class="hero">
-  <p class="eyebrow">A quiet place on the internet</p>
-  <h1>Hello, we’re Shodo 👋</h1>
-  <p class="lead">
-    Design meets technology, creativity meets reflection, and stories unfold at a slower,
-    more intentional pace. This is a space for thoughtful writing, product thinking, and ideas worth keeping.
-  </p>
-  <div class="hero-actions">
-    <a class="button primary" href="#featured">Read featured stories</a>
-    <a class="button secondary" href="{{ '/about.html' | relative_url }}">About this blog</a>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* Reset theme spacing on /homepage/ */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000000 !important;
+    user-select: none;
+  }
+  .global-wrap,
+  main.content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+  }
+
+  /* Main Stage */
+  .swf-stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+  }
+
+  /* Center Black Canvas Area */
+  .swf-canvas {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+  }
+
+  /* 1. Intro Logo: ARIARS.COM */
+  .intro-logo-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+
+  .intro-logo-svg {
+    width: min(820px, 86vw);
+    height: auto;
+    overflow: visible;
+  }
+
+  /* 2. Bottom Bar Area */
+  .swf-bottom-area {
+    position: relative;
+    width: 100%;
+    height: 82px;
+    background-color: #000000;
+    overflow: hidden;
+  }
+
+  /* Middle/Top grey bar: fills from left edge to right edge */
+  .swf-bottom-grey-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 6px;
+    width: 100%;
+    background-color: #6b6b6b;
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: barFillLeftToRight 0.75s cubic-bezier(0.25, 1, 0.5, 1) 3.8s forwards;
+    z-index: 4;
+  }
+
+  /* Bottom white bar background: fills from left edge to right edge */
+  .swf-bottom-white-bg {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: barFillLeftToRight 0.8s cubic-bezier(0.25, 1, 0.5, 1) 3.95s forwards;
+    z-index: 2;
+  }
+
+  @keyframes barFillLeftToRight {
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Content container inside the bottom bar (revealed after bar fill completes) */
+  .swf-bottom-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    padding: 6px 36px 0 36px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Left: ariars (Spectral font, lowercase) */
+  .swf-brand {
+    display: inline-flex;
+    align-items: baseline;
+    text-decoration: none !important;
+    color: #141414;
+    opacity: 0;
+    filter: blur(6px);
+    animation: blurReveal 0.6s ease 4.8s forwards;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .swf-brand__ariars {
+    font-family: "Spectral", Georgia, serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: #1c1c1c;
+  }
+
+  /* Center Menu: Home | About | Pages | Category | Tags */
+  .swf-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .swf-nav__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateX(10px);
+  }
+
+  /* Staggered reveal starting AFTER the bar fill finishes (4.85s ~) */
+  .swf-nav__item:nth-child(1) { animation: navBlurIn 0.5s ease 4.85s forwards; }
+  .swf-nav__item:nth-child(2) { animation: navBlurIn 0.5s ease 5.00s forwards; }
+  .swf-nav__item:nth-child(3) { animation: navBlurIn 0.5s ease 5.15s forwards; }
+  .swf-nav__item:nth-child(4) { animation: navBlurIn 0.55s ease 5.30s forwards; }
+  .swf-nav__item:nth-child(5) { animation: navBlurIn 0.55s ease 5.45s forwards; }
+
+  @keyframes navBlurIn {
+    0% {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translateX(10px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes blurReveal {
+    0% {
+      opacity: 0;
+      filter: blur(6px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+
+  .swf-nav__link {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #2b2b2b;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .swf-nav__link:hover,
+  .swf-nav__link.is-active {
+    color: #c8641e;
+  }
+
+  .swf-nav__sep {
+    font-size: 12px;
+    color: #777777;
+    font-weight: 400;
+  }
+
+  /* Right: copyright(c) 2026 ariars. */
+  .swf-copyright {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #555555;
+    white-space: nowrap;
+    opacity: 0;
+    filter: blur(5px);
+    animation: blurReveal 0.6s ease 5.45s forwards;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .swf-bottom-content {
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+    }
+    .swf-bottom-area {
+      height: 96px;
+    }
+    .swf-brand__ariars {
+      font-size: 24px;
+    }
+    .swf-nav__link {
+      font-size: 11px;
+    }
+    .swf-copyright {
+      font-size: 9px;
+    }
+  }
+</style>
+
+<div class="swf-stage" id="swf-stage">
+  <!-- Main Black Stage -->
+  <div class="swf-canvas">
+    <!-- Intro Logo: Grey (#4a4a4a) filling from bottom (y=100%) to top (y=0%) with White (#ffffff) -->
+    <div class="intro-logo-wrap" id="intro-logo">
+      <svg class="intro-logo-svg" viewBox="0 0 860 130" xmlns="http://www.w3.org/2000/svg" aria-label="ARIARS.COM">
+        <defs>
+          <!-- Vertical gradient from bottom (y1="100%") to top (y2="0%") of the text bounding box -->
+          <linearGradient id="bottomToTopFill" x1="0%" y1="100%" x2="0%" y2="0%" gradientUnits="objectBoundingBox">
+            <stop id="fill-white-stop" offset="0%" stop-color="#ffffff" />
+            <stop id="fill-grey-stop" offset="0%" stop-color="#4a4a4a" />
+          </linearGradient>
+        </defs>
+        <text x="50%" y="92"
+              text-anchor="middle"
+              fill="url(#bottomToTopFill)"
+              font-family="'Google Sans', 'Product Sans', sans-serif"
+              font-size="86"
+              font-weight="400"
+              letter-spacing="3">ARIARS.COM</text>
+      </svg>
+    </div>
   </div>
-</section>
 
-<section id="featured">
-  <div class="section-heading">Featured stories</div>
-  <div class="story-grid">
-    {% for post in site.posts limit: 4 %}
-      <article class="story-card">
-        <p class="story-meta">{{ post.date | date: "%b %-d, %Y" }} · {{ post.categories | join: ", " }}</p>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p>{{ post.excerpt | strip_html | truncatewords: 24 }}</p>
-        <a class="read-more" href="{{ post.url | relative_url }}">Read article →</a>
-      </article>
-    {% endfor %}
-  </div>
-</section>
+  <!-- Bottom Bar -->
+  <div class="swf-bottom-area">
+    <div class="swf-bottom-grey-strip" id="grey-strip"></div>
+    <div class="swf-bottom-white-bg" id="white-bg"></div>
+    <div class="swf-bottom-content" id="white-bar">
+      <!-- Left: Brand -->
+      <a href="{{ '/' | relative_url }}" class="swf-brand" title="Back to Blog Home">
+        <span class="swf-brand__ariars">ariars</span>
+      </a>
 
-<section class="content-grid">
-  <div class="posts-column">
-    <div class="section-heading">Latest writing</div>
+      <!-- Center: 5 Navigation Links -->
+      <ul class="swf-nav">
+        <li class="swf-nav__item">
+          <a class="swf-nav__link is-active" href="{{ '/' | relative_url }}">Home</a>
+          <span class="swf-nav__sep">|</span>
+        </li>
+        <li class="swf-nav__item">
+          <a class="swf-nav__link" href="{{ '/about/' | relative_url }}">About</a>
+          <span class="swf-nav__sep">|</span>
+        </li>
+        <li class="swf-nav__item">
+          <a class="swf-nav__link" href="{{ '/Program/' | relative_url }}">Pages</a>
+          <span class="swf-nav__sep">|</span>
+        </li>
+        <li class="swf-nav__item">
+          <a class="swf-nav__link" href="{{ '/categories/' | relative_url }}">Category</a>
+          <span class="swf-nav__sep">|</span>
+        </li>
+        <li class="swf-nav__item">
+          <a class="swf-nav__link" href="{{ '/tags/' | relative_url }}">Tags</a>
+        </li>
+      </ul>
 
-    {% for post in site.posts %}
-      <article class="post-row">
-        <div class="post-date">{{ post.date | date: "%b %-d, %Y" }}</div>
-        <div class="post-body">
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          <p>{{ post.excerpt | strip_html | truncatewords: 32 }}</p>
-        </div>
-      </article>
-    {% endfor %}
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-box">
-      <h3>Popular topics</h3>
-      <div class="tag-list">
-        <a href="#">Design</a>
-        <a href="#">Writing</a>
-        <a href="#">Lifestyle</a>
-        <a href="#">Philosophy</a>
+      <!-- Right: Copyright -->
+      <div class="swf-copyright">
+        copyright(c) 2026 ariars.
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="sidebar-box">
-      <h3>Pinned</h3>
-      <p>Ideas worth slowing down for.</p>
-    </div>
-  </aside>
-</section>
+<script>
+  (function () {
+    const whiteStop = document.getElementById("fill-white-stop");
+    const greyStop = document.getElementById("fill-grey-stop");
+    const introLogo = document.getElementById("intro-logo");
+
+    if (!whiteStop || !greyStop || !introLogo) return;
+
+    // Wait 350ms on solid grey (#4a4a4a), then fill bottom-to-top to white (#ffffff) over 2000ms
+    const startDelay = 350;
+    const fillDuration = 2000;
+    const holdAfterFill = 500;
+    const startTime = performance.now();
+
+    function animateFill(now) {
+      const elapsed = now - startTime;
+
+      if (elapsed < startDelay) {
+        whiteStop.setAttribute("offset", "0%");
+        greyStop.setAttribute("offset", "0%");
+        requestAnimationFrame(animateFill);
+        return;
+      }
+
+      const progress = Math.min(1, (elapsed - startDelay) / fillDuration);
+      // Smooth ease-in-out curve
+      const eased = progress < 0.5
+        ? 2 * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+      const pct = (eased * 100).toFixed(2);
+      // Slight 3% soft edge between white and grey as it rises
+      const edgePct = Math.min(100, eased * 100 + 2).toFixed(2);
+
+      whiteStop.setAttribute("offset", pct + "%");
+      greyStop.setAttribute("offset", edgePct + "%");
+
+      if (progress < 1) {
+        requestAnimationFrame(animateFill);
+      } else {
+        // After filling completely to 100% white, hold briefly then fade out
+        setTimeout(function () {
+          introLogo.style.opacity = "0";
+        }, holdAfterFill);
+      }
+    }
+
+    requestAnimationFrame(animateFill);
+  })();
+</script>

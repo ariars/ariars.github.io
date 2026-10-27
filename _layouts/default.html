@@ -1,41 +1,241 @@
-<!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ page.description | default: site.description | default: site.title }}">
-    <title>{{ page.title | default: site.title }}</title>
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    {% seo %}
-  </head>
-  <body class="shodo-body">
-    <div class="site-shell">
-      <header class="site-header" role="banner">
-        <div class="brand">
-          <a href="{{ '/' | relative_url }}">Shodo</a>
+﻿<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'kr' }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% if page.title and page.title != 'ariars' %}{{ page.title }} – {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+  <script>
+    const defaultTheme = "light";
+    const isToggleEnabled = true;
+    const userTheme = localStorage.getItem("theme");
+
+    function setTheme(mode) {
+      if (mode === "dark") {
+        document.documentElement.setAttribute("dark", "");
+        document.documentElement.classList.add("dark-mode");
+      } else if (mode === "light") {
+        document.documentElement.removeAttribute("dark");
+        document.documentElement.classList.remove("dark-mode");
+      }
+    }
+
+    if (isToggleEnabled) {
+      if (userTheme) {
+        setTheme(userTheme);
+      } else {
+        setTheme(defaultTheme);
+      }
+    } else {
+      setTheme(defaultTheme);
+    }
+
+    if (localStorage.getItem("classView") === "list") {
+      document.documentElement.setAttribute("list", "");
+      document.documentElement.classList.add('view-list');
+    }
+  </script>
+
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {% seo %}
+</head>
+
+<body>
+
+  <!-- begin global wrap -->
+  <div class="global-wrap">
+    <!-- begin header -->
+    <header class="header" {% if page.hide_header_footer %}style="display: none !important;"{% endif %}>
+      <div class="container">
+        <div class="row">
+          <div class="header__inner col col-12">
+
+            <div class="logo">
+              <a class="logo__link" href="{{ '/' | relative_url }}">
+                {{ site.title | default: 'Shodo' }}
+              </a>
+            </div>
+
+            <div class="hamburger">
+              <div></div>
+            </div>
+
+            <nav class="main-nav" aria-label="Main menu">
+              <div class="main-nav__box">
+                <ul class="nav__list list-reset">
+                  <li class="nav__item">
+                    <a href="{{ '/' | relative_url }}" class="nav__link {% if page.url == '/' %}active-link{% endif %}">Home</a>
+                  </li>
+                  <li class="nav__item">
+                    <a href="{{ '/homepage/' | relative_url }}" class="nav__link {% if page.url contains '/homepage' %}active-link{% endif %}">Homepage</a>
+                  </li>
+                  <li class="nav__item">
+                    <a href="{{ '/about/' | relative_url }}" class="nav__link {% if page.url contains '/about' %}active-link{% endif %}">About</a>
+                  </li>
+                  <li class="nav__item dropdown">
+                    <a href="#" class="nav__link dropdown-toggle">Pages <i class="fa-solid fa-chevron-down arrow-down"></i></a>
+                    <div class="dropdown-menu">
+                      <a href="{{ '/Program/' | relative_url }}" class="nav__link">Program</a>
+                      <a href="{{ '/Design/' | relative_url }}" class="nav__link">Design</a>
+                      <a href="{{ '/AI/' | relative_url }}" class="nav__link">AI</a>
+                    </div>
+                  </li>
+                  <li class="nav__item">
+                    <a href="{{ '/categories/' | relative_url }}" class="nav__link {% if page.url contains '/categories' or page.url contains '/categorys' %}active-link{% endif %}">Category</a>
+                  </li>
+                  <li class="nav__item">
+                    <a href="{{ '/tags/' | relative_url }}" class="nav__link {% if page.url contains '/tags' %}active-link{% endif %}">Tag</a>
+                  </li>
+                  <li class="nav__item">
+                    <a href="{{ '/archive/' | relative_url }}" class="nav__link {% if page.url contains '/archive' %}active-link{% endif %}">Archive</a>
+                  </li>
+                  <!-- <li class="nav__item dropdown">
+                    <a href="#" class="nav__link dropdown-toggle">Resources <i class="fa-solid fa-chevron-down arrow-down"></i></a>
+                    <div class="dropdown-menu">
+                      <a href="{{ '/videos/' | relative_url }}" class="nav__link">Videos</a>
+                      <a href="{{ '/bookmarks/' | relative_url }}" class="nav__link">Bookmarks</a>
+                      <a href="{{ '/elements/' | relative_url }}" class="nav__link">Elements</a>
+                    </div>
+                  </li> -->
+                  <li class="nav__item">
+                    <a href="{{ '/contact/' | relative_url }}" class="nav__link {% if page.url contains '/contact' %}active-link{% endif %}">Contact</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+            <div class="nav-button">
+              <div class="color-scheme-button">
+                <div class="toggle-theme">
+                  <div class="toggle-moon" title="Enable dark mode" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216"/></svg>
+                  </div>
+                  <div class="toggle-sun" title="Enable light mode" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M256 48v48m0 320v48m147.08-355.08-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48m-320 0H48m355.08 147.08-33.94-33.94M142.86 142.86l-33.94-33.94"/><circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <a href="{{ '/bookmarks/' | relative_url }}" class="bookmark-toggle" id="bookmark-icon" aria-label="Saved bookmarks">
+                <span id="bookmark-count"></span>
+                <svg width="17px" height="17px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M128,80V64a48.14,48.14,0,0,1,48-48H400a48.14,48.14,0,0,1,48,48V432l-80-64"
+                    style="fill:none;stroke:var(--heading-font-color);stroke-linejoin:round;stroke-width:32px" />
+                  <path d="M320,96H112a48.14,48.14,0,0,0-48,48V496L216,368,368,496V144A48.14,48.14,0,0,0,320,96Z"
+                    style="fill:none;stroke:var(--heading-font-color);stroke-linejoin:round;stroke-width:32px" />
+                </svg>
+              </a>
+              <div class="search-button">
+                <svg class="search-button__icon" xmlns="http://www.w3.org/2000/svg" width="19px" height="19px" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
+              </div>
+            </div>
+
+          </div>
         </div>
+      </div>
 
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="{{ '/' | relative_url }}">Home</a>
-          <a href="{{ '/about.html' | relative_url }}">About</a>
-          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-        </nav>
+      <progress class="r-progress" value="0" max="100" data-progress=""></progress>
+    </header>
+    <!-- end header -->
 
-        <a class="nav-cta" href="#featured">Featured</a>
-      </header>
-
-      <main id="content" class="site-content" role="main">
-        {{ content }}
-      </main>
-
-      <footer class="site-footer">
-        <div class="footer-brand">Shodo</div>
-        <div class="footer-copy">© {{ 'now' | date: '%Y' }} Ariar's Blog</div>
-        <div class="footer-links">
-          <a href="https://github.com/ariars">GitHub</a>
-          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    <!-- begin search -->
+    <div class="search">
+      <div class="container">
+        <div class="row">
+          <div class="col col-12">
+            <div class="search__box">
+              <div class="search__group">
+                <i class="search__close fa-solid fa-xmark"></i>
+                <label for="js-search-input" class="screen-reader-text">Search for Blog</label>
+                <input type="text" id="js-search-input" class="search__text" autocomplete="off"
+                  placeholder="Type to search...">
+              </div>
+              <div class="search-results-list" id="js-results-container"></div>
+            </div>
+          </div>
         </div>
-      </footer>
+      </div>
+      <div class="search__overlay"></div>
     </div>
-  </body>
+    <!-- end search -->
+
+    <!-- begin content -->
+    <main class="content" aria-label="Content">
+      {{ content }}
+    </main>
+    <!-- end content -->
+
+    <!-- begin footer -->
+    <footer class="footer" {% if page.hide_header_footer %}style="display: none !important;"{% endif %}>
+      <div class="footer__inner">
+        <div class="container">
+          <div class="footer__info">
+            <div class="footer__logo">
+              <a class="footer__logo__link" href="{{ '/' | relative_url }}">
+                {{ site.title | default: 'Shodo' }}
+              </a>
+            </div>
+
+            <p class="footer__info__description">Stories, essays, and reflections exploring creativity, technology, and the craft of thinking through words in a calm and distraction-free environment.</p>
+
+            <div class="footer__social">
+              <ul class="footer__social__list list-reset">
+                <li class="footer__social__item">
+                  <a class="footer__social__link" href="https://facebook.com" target="_blank" rel="noopener"
+                    aria-label="Facebook link"><i class="fa-brands fa-facebook-f"></i></a>
+                </li>
+                <li class="footer__social__item">
+                  <a class="footer__social__link" href="https://twitter.com" target="_blank" rel="noopener"
+                    aria-label="Twitter link"><i class="fa-brands fa-x-twitter"></i></a>
+                </li>
+                <li class="footer__social__item">
+                  <a class="footer__social__link" href="https://tiktok.com" target="_blank" rel="noopener"
+                    aria-label="Tiktok link"><i class="fa-brands fa-tiktok"></i></a>
+                </li>
+                <li class="footer__social__item">
+                  <a class="footer__social__link" href="https://reddit.com" target="_blank" rel="noopener"
+                    aria-label="Reddit link"><i class="fa-brands fa-reddit-alien"></i></a>
+                </li>
+                <li class="footer__social__item">
+                  <a class="footer__social__link" href="https://mastodon.social" target="_blank" rel="noopener"
+                    aria-label="Mastodon link"><i class="fa-brands fa-mastodon"></i></a>
+                </li>
+                <li class="footer__social__item">
+                  <a class="footer__social__link" href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener"
+                    aria-label="Rss link"><i class="fa-solid fa-rss"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="copyright">{{ 'now' | date: '%Y' }} &copy; <a href="{{ '/' | relative_url }}">{{ site.title | default: 'ariars' }}</a>. Crafted &amp; Designed by <a href="https://anvodstudio.com/">Anvod Studio</a>.</div>
+      </div>
+    </footer>
+    <!-- end footer -->
+  </div>
+  <!-- end global wrap -->
+
+  <div class="top" title="Top" {% if page.hide_header_footer %}style="display: none !important;"{% endif %}><i class="fa-solid fa-arrow-up"></i></div>
+
+  <div class="images-overlay"></div>
+
+  <script src="{{ '/assets/js/scripts.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/common.js' | relative_url }}"></script>
+</body>
+
 </html>

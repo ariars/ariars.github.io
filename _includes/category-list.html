@@ -1,0 +1,196 @@
+<style>
+  .category-nav-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .category-nav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--heading-font-color);
+    background-color: var(--background-color);
+    border: 1px solid var(--border-alt-color);
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+  .category-nav-chip:hover,
+  .category-nav-chip.is-active {
+    background-color: var(--heading-font-color);
+    color: var(--background-alt-color);
+    border-color: var(--heading-font-color);
+  }
+  .category-nav-chip small {
+    font-size: 12px;
+    opacity: 0.75;
+  }
+  .category-group {
+    margin-bottom: 40px;
+  }
+  .category-group:last-child {
+    margin-bottom: 0;
+  }
+  .page__content .category-group h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 26px;
+    scroll-margin-top: 100px;
+  }
+  .page__content .category-group h2 small,
+  .page__content .category-group h3 small {
+    font-family: "Source Sans 3", sans-serif;
+    font-size: 0.65em;
+    font-weight: 400;
+    color: var(--text-alt-color);
+  }
+  .page__content .category-group h3 {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border-color);
+    font-size: 20px;
+    scroll-margin-top: 100px;
+  }
+  .page__content .category-post-list {
+    list-style: disc;
+    padding-left: 22px;
+    margin-top: 0;
+    margin-bottom: 18px;
+  }
+  .page__content .category-post-list li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .page__content .category-post-list li p {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .page__content .category-post-list li a {
+    color: var(--heading-font-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+  }
+  .page__content .category-post-list li a:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+  .page__content .category-post-list li small {
+    font-size: 13px;
+    color: var(--text-alt-color);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+{% comment %}
+  Collect top-level categories (post.categories[0]) in a deterministic order
+{% endcomment %}
+{% assign top_categories = "" | split: "" %}
+{% for post in site.posts %}
+  {% if post.categories.size > 0 %}
+    {% assign top_cat = post.categories[0] %}
+    {% unless top_categories contains top_cat %}
+      {% assign top_categories = top_categories | push: top_cat %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% if top_categories.size > 0 %}
+<div class="category-nav-chips">
+  <a href="{{ '/categories/' | relative_url }}" class="category-nav-chip {% unless include.filter_category %}is-active{% endunless %}">
+    All <small>({{ site.posts.size }})</small>
+  </a>
+  {% for top_cat in top_categories %}
+    {% assign total_in_top = 0 %}
+    {% for post in site.posts %}
+      {% if post.categories[0] == top_cat %}
+        {% assign total_in_top = total_in_top | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    <a href="{{ '/categories/' | relative_url }}#{{ top_cat | slugify }}" class="category-nav-chip {% if include.filter_category == top_cat %}is-active{% endif %}">
+      {{ top_cat }} <small>({{ total_in_top }})</small>
+    </a>
+  {% endfor %}
+</div>
+
+{% for top_cat in top_categories %}
+  {% if include.filter_category == nil or include.filter_category == top_cat %}
+    {% assign total_in_top = 0 %}
+    {% assign direct_posts = "" | split: "" %}
+    {% assign sub_categories = "" | split: "" %}
+
+    {% for post in site.posts %}
+      {% if post.categories[0] == top_cat %}
+        {% assign total_in_top = total_in_top | plus: 1 %}
+        {% if post.categories.size == 1 %}
+          {% assign direct_posts = direct_posts | push: post %}
+        {% elsif post.categories.size > 1 %}
+          {% assign sub_cat = post.categories[1] %}
+          {% unless sub_categories contains sub_cat %}
+            {% assign sub_categories = sub_categories | push: sub_cat %}
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <div class="category-group">
+      <h2 id="{{ top_cat | slugify }}">{{ top_cat }} <small>({{ total_in_top }})</small></h2>
+
+      {% if direct_posts.size > 0 %}
+      <ul class="category-post-list">
+        {% for post in direct_posts %}
+        <li>
+          <p>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% for sub_cat in sub_categories %}
+        {% assign sub_posts = "" | split: "" %}
+        {% for post in site.posts %}
+          {% if post.categories[0] == top_cat and post.categories[1] == sub_cat %}
+            {% assign sub_posts = sub_posts | push: post %}
+          {% endif %}
+        {% endfor %}
+
+        <h3 id="{{ top_cat | slugify }}-{{ sub_cat | slugify }}">{{ sub_cat }} <small>({{ sub_posts.size }})</small></h3>
+        <ul class="category-post-list">
+          {% for post in sub_posts %}
+          <li>
+            <p>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+            </p>
+          </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<!-- begin page -->
+<div class="container">
+  <div class="row">
+
+    <div class="col col-9 col-d-12">
+      <div class="page-container">
+        <div class="page-inner">
+
+          <div class="page-info">
+            <h1 class="page-title">{{ page.title }}</h1>
+            {% if page.description %}
+            <div class="page__description">{{ page.description }}</div>
+            {% endif %}
+          </div>
+
+          {% if page.image %}
+          <div class="page-head">
+            <div class="page-image img-wrap">
+              <img class="lazy" data-src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+            </div>
+            {% if page.image_caption %}
+            <div class="post-image-caption">{{ page.image_caption }}</div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <article class="page">
+            <div class="page__content">
+              {{ content }}
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-3 col-d-12">
+      {% include sidebar.html show_newsletter=true %}
+    </div>
+
+  </div>
+</div>
+<!-- end page -->

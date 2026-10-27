@@ -1,9 +1,10 @@
-title: Shodo
-description: A quiet place on the internet for ideas, writing, and thoughtful work.
+title: ariars
+description: ariars github io
 baseurl: ""
 url: "https://ariars.github.io"
+permalink: /:title
+future: true
 
-theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
