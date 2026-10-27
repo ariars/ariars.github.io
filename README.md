@@ -1,18 +1,20 @@
-# ariars.github.io
+# Ariar's Blog
 
-[[_TOC_]]
+GitHub Pages + Cayman 테마 기반 블로그입니다.
 
-# 1. VS Code 설치
- - https://code.visualstudio.com/
- - Extention : Azure DevOps Wiki Markdown 설치
+## 로컬 실행
 
-# 2. Git 설치
-- https://git-scm.com/download/win
-- git config --global user.name "sjjeon"
-- git config --global user.email "sjjeon@feelanet.com"
-- 프록시 설정 : git config --global http.proxy http://168.219.61.252:8080
+```bash
+bundle install
+bundle exec jekyll serve
+```
 
-# 3. 리포지토리 복제
-- http://devops.feelanet.com/Samsung/Sec.DX.RnD/_git/Sec.DX.RnD.wiki
+브라우저에서 `http://localhost:4000` 으로 확인할 수 있습니다.
 
-# 4. 참고
+## 배포
+
+GitHub 저장소에 push하면 GitHub Pages에서 자동으로 사이트가 빌드됩니다.
+
+- 저장소 이름: `ariars.github.io`
+- 브랜치: `main`
+- GitHub Pages 설정: Build and deployment = GitHub Actions 또는 기존 Jekyll

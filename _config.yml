@@ -1,0 +1,18 @@
+title: Ariar's Blog
+description: 개발, 기록, 생각을 정리하는 공간
+baseurl: ""
+url: "https://ariars.github.io"
+
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+show_downloads: false
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - vendor/
