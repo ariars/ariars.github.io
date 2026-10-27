@@ -1,19 +1,34 @@
 ---
 layout: default
-title: 소개
+title: About
+description: About the author and the purpose of this blog.
 ---
 
-# 소개
+<section class="page-intro">
+  <h1>About</h1>
+  <p>
+    This blog is a quiet, practical space for ideas about product work, problem-solving,
+    design, and the rhythm of a thoughtful creative life.
+  </p>
+</section>
 
-안녕하세요. 이 블로그는 개발, 공부, 글쓰기 내용을 정리하는 공간입니다.
+<div class="article-layout">
+  <h2>What I write about</h2>
+  <ul>
+    <li>Design and digital craftsmanship</li>
+    <li>Writing, reflection, and personal systems</li>
+    <li>Web development and experimentation</li>
+    <li>Small habits that create meaningful work</li>
+  </ul>
 
-## 관심사
+  <h2>Why this blog exists</h2>
+  <p>
+    I wanted a place that felt calmer than the average social feed—a slower medium for ideas,
+    observations, and notes that deserve more than a quick scroll.
+  </p>
 
-- 웹 개발
-- Python, JavaScript
-- 자동화와 도구
-- 문제 해결 기록
-
-## 연락처
-
-- GitHub: [ariars](https://github.com/ariars)
+  <h2>Contact</h2>
+  <p>
+    GitHub: <a href="https://github.com/ariars">ariars</a>
+  </p>
+</div>
