@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Creative Energy and the Importance of Rest"
 date: 2026-06-15 12:01:35 +0000

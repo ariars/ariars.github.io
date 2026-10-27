@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Lessons Learned from Maintaining a Personal Blog"
 date: 2026-06-11 12:01:35 +0000

@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Designing Interfaces That Respect Attention"
 date: 2026-06-14 12:01:35 +0000

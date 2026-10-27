@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Designing for Stillness in a Noisy Digital World"
 date: 2025-06-22 12:01:35 +0000

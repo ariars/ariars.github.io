@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Slow Thinking as a Creative Advantage"
 date: 2026-06-17 12:01:35 +0000

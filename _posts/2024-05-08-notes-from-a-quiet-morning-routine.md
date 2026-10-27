@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Notes From a Quiet Morning Routine"
 date: 2024-05-08 12:01:35 +0000

@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Why Simplicity Feels Luxurious"
 date: 2026-06-12 12:01:35 +0000

@@ -25,16 +25,19 @@ hide_header_footer: true
   main.content {
     margin: 0 !important;
     padding: 0 !important;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
     background-color: #000000;
   }
 
-  /* Main Stage */
+  /* Main Stage - fixed to visible viewport (100dvh) so mobile browser bars never clip the bottom bar */
   .swf-stage {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
     background-color: #000000;
     overflow: hidden;
     display: flex;
@@ -46,12 +49,14 @@ hide_header_footer: true
   /* Center Black Canvas Area */
   .swf-canvas {
     position: relative;
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #000000;
+    overflow: hidden;
   }
 
   /* 1. Intro Logo: ARIARS.COM */
@@ -195,6 +200,7 @@ hide_header_footer: true
   /* 2. Bottom Bar Area */
   .swf-bottom-area {
     position: relative;
+    flex-shrink: 0;
     width: 100%;
     height: 82px;
     background-color: #000000;
@@ -358,23 +364,46 @@ hide_header_footer: true
   }
 
   @media (max-width: 900px) {
-    .swf-bottom-content {
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 16px;
+    .home-scene {
+      transform-origin: bottom center;
+      transform: translateX(-50%) scale(0.82);
     }
     .swf-bottom-area {
-      height: 96px;
+      height: auto;
+      min-height: 106px;
+    }
+    .swf-bottom-content {
+      height: auto;
+      min-height: 106px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px)) 12px;
     }
     .swf-brand__ariars {
       font-size: 24px;
     }
+    .swf-nav {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+    .swf-nav__item {
+      gap: 6px;
+    }
     .swf-nav__link {
-      font-size: 11px;
+      font-size: 12px;
     }
     .swf-copyright {
-      font-size: 9px;
+      font-size: 9.5px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .home-scene {
+      transform-origin: bottom center;
+      transform: translateX(-50%) scale(0.66);
     }
   }
 </style>

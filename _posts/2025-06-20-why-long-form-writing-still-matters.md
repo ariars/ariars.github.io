@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Why Long-Form Writing Still Matters"
 date: 2025-06-20 12:01:35 +0000

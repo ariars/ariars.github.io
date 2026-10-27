@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Why Some Cafes Make Us Want to Stay Longer"
 date: 2024-03-10 15:05:55 +0000

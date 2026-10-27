@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Why We Continue to Romanticize Bookstores"
 date: 2024-05-03 12:01:35 +0000

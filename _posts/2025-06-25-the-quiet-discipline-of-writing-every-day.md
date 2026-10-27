@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "The Quiet Discipline of Writing Every Day"
 date: 2025-06-25 12:01:35 +0000

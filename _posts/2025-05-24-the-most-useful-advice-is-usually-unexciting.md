@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "The Most Useful Advice Is Usually Unexciting"
 date: 2025-05-24 12:01:35 +0000

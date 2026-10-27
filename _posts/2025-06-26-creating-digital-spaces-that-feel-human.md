@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Creating Digital Spaces That Feel Human"
 date: 2025-06-26 12:01:35 +0000

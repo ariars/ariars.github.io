@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "The Beauty of Imperfect Systems"
 date: 2025-06-17 12:01:35 +0000

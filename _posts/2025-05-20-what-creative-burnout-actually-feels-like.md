@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "What Creative Burnout Actually Feels Like"
 date: 2025-05-20 12:01:35 +0000

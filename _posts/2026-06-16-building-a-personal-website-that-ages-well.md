@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Building a Personal Website That Ages Well"
 date: 2026-06-16 12:01:35 +0000
