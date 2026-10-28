@@ -9,6 +9,7 @@ hide_header_footer: true
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="video" href="{{ '/assets/movie1.mp4' | relative_url }}" type="video/mp4">
 
 <style>
   /* Reset theme spacing on /homepage/ */
@@ -78,123 +79,79 @@ hide_header_footer: true
     overflow: visible;
   }
 
-  /* Post-menu Center-Bottom 4-Sprite Scene (524 x 226 exact pixel composition) */
-  .home-scene {
+  /* Post-menu Background Video (assets/movie1.mp4) */
+  .swf-bg-video {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 524px;
-    height: 226px;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 6;
-  }
-
-  .sprite-mover {
-    position: absolute;
-    opacity: 0;
-    filter: blur(18px);
-    transform: translateX(-110vw);
-    will-change: transform, opacity, filter;
-  }
-
-  /* Exact pixel positions inside the 524x226 composition */
-  .sprite-mover--1 {
-    left: 327px;
-    top: 43px;
-    width: 197px;
-    height: 95px;
-    z-index: 1;
-    animation: slideLeftToCenter 1.45s cubic-bezier(0.16, 1, 0.3, 1) 5.65s forwards;
-  }
-
-  .sprite-mover--2 {
-    left: 0px;
-    top: 0px;
-    width: 174px;
-    height: 138px;
-    z-index: 2;
-    animation: slideLeftToCenter 1.32s cubic-bezier(0.16, 1, 0.3, 1) 5.58s forwards;
-  }
-
-  .sprite-mover--3 {
-    left: 95px;
-    top: 62px;
-    width: 334px;
-    height: 164px;
-    z-index: 3;
-    animation: slideLeftToCenter 1.12s cubic-bezier(0.16, 1, 0.3, 1) 5.45s forwards;
-  }
-
-  .sprite-mover--4 {
-    left: 197px;
-    top: 12px;
-    width: 107px;
-    height: 214px;
-    z-index: 4;
-    animation: slideLeftToCenter 1.22s cubic-bezier(0.16, 1, 0.3, 1) 5.52s forwards;
-  }
-
-  @keyframes slideLeftToCenter {
-    0% {
-      opacity: 0;
-      filter: blur(18px);
-      transform: translateX(-100vw);
-    }
-    20% {
-      opacity: 1;
-      filter: blur(14px);
-    }
-    75% {
-      opacity: 1;
-      filter: blur(3px);
-    }
-    100% {
-      opacity: 1;
-      filter: blur(0px);
-      transform: translateX(0);
-    }
-  }
-
-  .sprite-mover img {
-    display: block;
+    inset: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+    background-color: #000000;
   }
 
-  /* Continuous gentle motion for 1 (right wing) and 2 (left wing) */
-  .wing-float-1 {
-    transform-origin: 10% 85%;
-    animation: gentleWingRight 3.6s ease-in-out 6.8s infinite alternate;
+  .swf-bg-video.is-active {
+    opacity: 1;
   }
 
-  .wing-float-2 {
-    transform-origin: 90% 85%;
-    animation: gentleWingLeft 3.2s ease-in-out 6.7s infinite alternate;
+  /* Post-menu Top-Left Text Movie Animation (replicates assets/text-movie.mp4) */
+  .text-movie-wrap {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    z-index: 6;
+    max-width: calc(100vw - 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
   }
 
-  @keyframes gentleWingRight {
-    0% {
-      transform: translate(0px, 0px) rotate(0deg);
-    }
-    50% {
-      transform: translate(2px, -3.5px) rotate(-2.2deg);
-    }
-    100% {
-      transform: translate(-1.5px, 2.5px) rotate(1.8deg);
-    }
+  .text-movie-wrap.is-active {
+    opacity: 1;
   }
 
-  @keyframes gentleWingLeft {
-    0% {
-      transform: translate(0px, 0px) rotate(0deg);
-    }
-    50% {
-      transform: translate(-2px, -4px) rotate(2.4deg);
-    }
-    100% {
-      transform: translate(1.5px, 2.5px) rotate(-1.6deg);
-    }
+  .text-movie__title {
+    font-family: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(36px, 5.2vw, 60px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    white-space: nowrap;
+    min-height: 1.05em;
+    margin: 0 0 2px 0;
+  }
+
+  .text-movie__title.is-placeholder {
+    color: #727272;
+  }
+
+  .text-movie__sub {
+    font-family: "Tahoma", "Verdana", "Dotum", "돋움", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    color: #bcbcbc;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
+    white-space: nowrap;
+    min-height: 1.3em;
+    margin: 0;
+  }
+
+  .text-movie__sub.is-placeholder {
+    color: #626262;
   }
 
   /* 2. Bottom Bar Area */
@@ -364,9 +321,11 @@ hide_header_footer: true
   }
 
   @media (max-width: 900px) {
-    .home-scene {
-      transform-origin: bottom center;
-      transform: translateX(-50%) scale(0.82);
+    .text-movie-wrap {
+      top: 16px;
+      left: 16px;
+      max-width: calc(100vw - 32px);
+      overflow: hidden;
     }
     .swf-bottom-area {
       height: auto;
@@ -399,19 +358,12 @@ hide_header_footer: true
       font-size: 9.5px;
     }
   }
-
-  @media (max-width: 560px) {
-    .home-scene {
-      transform-origin: bottom center;
-      transform: translateX(-50%) scale(0.66);
-    }
-  }
 </style>
 
 <div class="swf-stage" id="swf-stage">
   <!-- Main Black Stage -->
   <div class="swf-canvas">
-    <!-- Intro Logo: Grey (#4a4a4a) filling from bottom (y=100%) to top (y=0%) with White (#ffffff) -->
+    <!-- Intro Logo: Grey (#222222) filling from bottom (y=100%) to top (y=0%) with White (#ffffff) -->
     <div class="intro-logo-wrap" id="intro-logo">
       <svg class="intro-logo-svg" viewBox="0 0 860 130" xmlns="http://www.w3.org/2000/svg" aria-label="ARIARS.COM">
         <defs>
@@ -431,20 +383,13 @@ hide_header_footer: true
       </svg>
     </div>
 
-    <!-- Post-menu 4-Sprite Scene (slides in from left with staggered speeds, wings 1 & 2 gently sway) -->
-    <div class="home-scene" aria-hidden="true">
-      <div class="sprite-mover sprite-mover--1">
-        <img class="wing-float-1" src="{{ '/assets/images/home/movie_1-1.png' | relative_url }}" alt="">
-      </div>
-      <div class="sprite-mover sprite-mover--2">
-        <img class="wing-float-2" src="{{ '/assets/images/home/movie_1-2.png' | relative_url }}" alt="">
-      </div>
-      <div class="sprite-mover sprite-mover--3">
-        <img src="{{ '/assets/images/home/movie_1-3.png' | relative_url }}" alt="">
-      </div>
-      <div class="sprite-mover sprite-mover--4">
-        <img src="{{ '/assets/images/home/movie_1-4.png' | relative_url }}" alt="">
-      </div>
+    <!-- Post-menu Background Video (preloaded during intro, plays after menu appears) -->
+    <video class="swf-bg-video" id="swf-bg-video" src="{{ '/assets/movie1.mp4' | relative_url }}" muted playsinline loop preload="auto" aria-hidden="true"></video>
+
+    <!-- Post-menu Top-Left Text Movie Animation (assets/text-movie.mp4 style) -->
+    <div class="text-movie-wrap" id="text-movie-wrap" aria-live="polite">
+      <div class="text-movie__title" id="text-movie-title"></div>
+      <div class="text-movie__sub" id="text-movie-sub"></div>
     </div>
   </div>
 
@@ -497,7 +442,7 @@ hide_header_footer: true
 
     if (!whiteStop || !greyStop || !introLogo) return;
 
-    // Wait 350ms on solid grey (#4a4a4a), then fill bottom-to-top to white (#ffffff) over 2000ms
+    // Wait 350ms on solid dark grey (#222222), then fill bottom-to-top to white (#ffffff) over 2000ms
     const startDelay = 350;
     const fillDuration = 2000;
     const holdAfterFill = 500;
@@ -520,7 +465,7 @@ hide_header_footer: true
         : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
       const pct = (eased * 100).toFixed(2);
-      // Slight 3% soft edge between white and grey as it rises
+      // Slight 2% soft edge between white and grey as it rises
       const edgePct = Math.min(100, eased * 100 + 2).toFixed(2);
 
       whiteStop.setAttribute("offset", pct + "%");
@@ -537,5 +482,105 @@ hide_header_footer: true
     }
 
     requestAnimationFrame(animateFill);
+
+    // =========================================================================
+    // Post-menu Text Movie Animation (0.05s per character for X -> - -> Text)
+    // Runs once after the bottom menu finishes appearing
+    // =========================================================================
+    const textWrap = document.getElementById("text-movie-wrap");
+    const titleEl = document.getElementById("text-movie-title");
+    const subEl = document.getElementById("text-movie-sub");
+
+    // Arbitrary sample text (can be replaced with any desired text)
+    const TEXT_ITEM = {
+      title: "달이 아름답네요 (月が綺麗ですね).",
+      sub: "워메 소새끼는 '달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다."
+    };
+
+    const CHAR_INTERVAL_MS = 20; // 0.02s per character
+
+    function getStepText(target, stepIndex) {
+      const len = target.length;
+      if (stepIndex <= 0) {
+        return "";
+      }
+      // 1. Sequentially grow 'X' up to target.length (0.05s per char)
+      if (stepIndex <= len) {
+        return "X".repeat(stepIndex);
+      }
+      // 2. Sequentially replace each 'X' with '-' (0.05s per char)
+      if (stepIndex <= len * 2) {
+        const dashCount = stepIndex - len;
+        return "-".repeat(dashCount) + "X".repeat(len - dashCount);
+      }
+      // 3. Sequentially replace each '-' with the actual character (0.05s per char)
+      if (stepIndex <= len * 3) {
+        const charCount = stepIndex - len * 2;
+        return target.slice(0, charCount) + "-".repeat(len - charCount);
+      }
+      // 4. Completed
+      return target;
+    }
+
+    function runSingleTextMovie(item) {
+      const targetTitle = item.title;
+      const targetSub = item.sub;
+      const maxSteps = Math.max(targetTitle.length, targetSub.length) * 3;
+      let currentStep = 0;
+
+      titleEl.textContent = "";
+      subEl.textContent = "";
+      titleEl.classList.add("is-placeholder");
+      subEl.classList.add("is-placeholder");
+
+      const timer = setInterval(function () {
+        currentStep += 1;
+
+        // Keep dim grey during initial 'X' growth, switch to main color once '-' / text conversion starts
+        if (currentStep <= targetTitle.length) {
+          titleEl.classList.add("is-placeholder");
+        } else {
+          titleEl.classList.remove("is-placeholder");
+        }
+
+        if (currentStep <= targetSub.length) {
+          subEl.classList.add("is-placeholder");
+        } else {
+          subEl.classList.remove("is-placeholder");
+        }
+
+        titleEl.textContent = getStepText(targetTitle, currentStep);
+        subEl.textContent = getStepText(targetSub, currentStep);
+
+        if (currentStep >= maxSteps) {
+          clearInterval(timer);
+          titleEl.classList.remove("is-placeholder");
+          subEl.classList.remove("is-placeholder");
+          titleEl.textContent = targetTitle;
+          subEl.textContent = targetSub;
+        }
+      }, CHAR_INTERVAL_MS);
+    }
+
+    // Start the background video and top-left text movie animation once right after the bottom menu finishes appearing (~5.45s)
+    const bgVideo = document.getElementById("swf-bg-video");
+    if (bgVideo) {
+      bgVideo.load();
+    }
+
+    if (textWrap && titleEl && subEl) {
+      setTimeout(function () {
+        if (bgVideo) {
+          bgVideo.currentTime = 0;
+          bgVideo.classList.add("is-active");
+          const playPromise = bgVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(function () {});
+          }
+        }
+        textWrap.classList.add("is-active");
+        runSingleTextMovie(TEXT_ITEM);
+      }, 5450);
+    }
   })();
 </script>

@@ -1,5 +1,7 @@
 title: ariars
 description: ariars github io
+lang: ko
+locale: ko_KR
 baseurl: ""
 url: "https://ariars.github.io"
 permalink: /:title
