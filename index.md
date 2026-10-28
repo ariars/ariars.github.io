@@ -103,6 +103,7 @@ hide_header_footer: true
     position: absolute;
     top: 28px;
     left: 36px;
+    right: 36px;
     z-index: 6;
     max-width: calc(100vw - 72px);
     display: flex;
@@ -119,39 +120,46 @@ hide_header_footer: true
   }
 
   .text-movie__title {
-    font-family: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
-    font-size: clamp(36px, 5.2vw, 60px);
+    display: block;
+    width: 100%;
+    font-family: "Plus Jakarta Sans", "Malgun Gothic", "맑은 고딕", "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(32px, 5.2vw, 60px);
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1.22;
     letter-spacing: -0.01em;
     color: #ffffff;
-    white-space: nowrap;
-    min-height: 1.05em;
-    margin: 0 0 2px 0;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, 0.92), 0 1px 4px rgba(0, 0, 0, 0.98);
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    min-height: 1.22em;
+    margin: 0 0 8px 0;
   }
 
   .text-movie__title.is-placeholder {
-    color: #727272;
+    color: #8a8a8a;
   }
 
   .text-movie__sub {
-    font-family: "Tahoma", "Verdana", "Dotum", "돋움", Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 1.3;
-    letter-spacing: 0.04em;
-    color: #bcbcbc;
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: grayscale;
-    font-smooth: never;
-    text-rendering: optimizeSpeed;
-    white-space: nowrap;
-    min-height: 1.3em;
+    display: block;
+    width: 100%;
+    font-family: "Malgun Gothic", "맑은 고딕", "Dotum", "돋움", "Tahoma", "Verdana", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #e2e2e2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 1);
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    min-height: 1.5em;
     margin: 0;
+    padding-left: 2px;
   }
 
   .text-movie__sub.is-placeholder {
-    color: #626262;
+    color: #7a7a7a;
   }
 
   /* 2. Bottom Bar Area */
@@ -324,8 +332,9 @@ hide_header_footer: true
     .text-movie-wrap {
       top: 16px;
       left: 16px;
+      right: 16px;
       max-width: calc(100vw - 32px);
-      overflow: hidden;
+      overflow: visible;
     }
     .swf-bottom-area {
       height: auto;
@@ -497,7 +506,7 @@ hide_header_footer: true
       sub: "워메 소새끼는 '달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다."
     };
 
-    const CHAR_INTERVAL_MS = 20; // 0.02s per character
+    const CHAR_INTERVAL_MS = 30; // 0.02s per character
 
     function getStepText(target, stepIndex) {
       const len = target.length;
