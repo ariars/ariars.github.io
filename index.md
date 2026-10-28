@@ -9,8 +9,7 @@ hide_header_footer: true
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="preload" as="video" href="{{ '/assets/movie1.mp4' | relative_url }}" type="video/mp4">
-<link rel="preload" as="video" href="{{ '/assets/movie2.mp4' | relative_url }}" type="video/mp4">
+<link rel="preload" as="video" href="{{ '/assets/movie/movie1.mp4?v=20261029b' | relative_url }}" type="video/mp4">
 
 <style>
   /* Reset theme spacing on /homepage/ */
@@ -393,9 +392,9 @@ hide_header_footer: true
       </svg>
     </div>
 
-    <!-- Post-menu Background Videos (preloaded during intro, play sequentially with fade out/in) -->
-    <video class="swf-bg-video" id="swf-bg-video-1" src="{{ '/assets/movie1.mp4' | relative_url }}" muted playsinline preload="auto" aria-hidden="true"></video>
-    <video class="swf-bg-video" id="swf-bg-video-2" src="{{ '/assets/movie2.mp4' | relative_url }}" muted playsinline preload="auto" aria-hidden="true"></video>
+    <!-- Post-menu Background Videos (single active decoder + double-buffered fade transition for 1 -> 2 -> 3 -> 4 -> 5) -->
+    <video class="swf-bg-video" id="swf-bg-video-a" muted playsinline preload="auto" aria-hidden="true"></video>
+    <video class="swf-bg-video" id="swf-bg-video-b" muted playsinline preload="none" aria-hidden="true"></video>
 
     <!-- Post-menu Top-Left Text Movie Animation (assets/text-movie.mp4 style) -->
     <div class="text-movie-wrap" id="text-movie-wrap" aria-live="polite">
@@ -496,24 +495,40 @@ hide_header_footer: true
 
     // =========================================================================
     // Post-menu Sequential Video + Text Movie Animation
-    // Scene 1 (movie1.mp4) -> Fade Out / Fade In -> Scene 2 (movie2.mp4)
+    // Scene 1 (movie1.mp4) -> Scene 2 -> Scene 3 -> Scene 4 -> Scene 5
     // =========================================================================
     const textWrap = document.getElementById("text-movie-wrap");
     const titleEl = document.getElementById("text-movie-title");
     const subEl = document.getElementById("text-movie-sub");
-    const video1 = document.getElementById("swf-bg-video-1");
-    const video2 = document.getElementById("swf-bg-video-2");
+    const videoA = document.getElementById("swf-bg-video-a");
+    const videoB = document.getElementById("swf-bg-video-b");
+    const players = [videoA, videoB];
 
     const SCENES = [
       {
-        video: video1,
-        title: "달이 아름답네요 (月が綺麗ですね).",
-        sub: "워메 소새끼는 '달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다."
+        src: "{{ '/assets/movie/movie1.mp4?v=20261029b' | relative_url }}",
+        title: "달이 아름답네요. (月が綺麗ですね).",
+        sub: "'달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다. - 오매 소새끼"
       },
       {
-        video: video2,
+        src: "{{ '/assets/movie/movie2.mp4?v=20261029b' | relative_url }}",
+        title: "아사코와 나는 세 번 만났다.",
+        sub: "그리워하는 데도 한 번 만나고는 못 만나게 되기도 하고, 일생을 못 잊으면서도 아니 만나고 살기도 한다. - 피천득 인연"
+      },
+      {
+        src: "{{ '/assets/movie/movie3.mp4?v=20261029b' | relative_url }}",
         title: "대책없는 희망, 무책임한 위로",
-        sub: "오상식 차장은 '현실'을 바꿀 수 없는 무력함을 이야기 했다."
+        sub: "'현실'을 바꿀 수 없는 무력함을 이야기 했다. 노력하며 버틴다는 개인적인 해결책이 얼마나 한계가 있는지를 생각하게 한다. - tvN 미생"
+      },
+      {
+        src: "{{ '/assets/movie/movie4.mp4?v=20261029b' | relative_url }}",
+        title: "너 뭘 태우고 있는 거니!? - 내 청춘.",
+        sub: "엄마가 보기엔. 그런 것보다 네 침대 밑에 있는 맥심 책이나 태우면 어떻겠니? - 그건... 내 목숨이야. - 아다치 미츠루 H2"
+      },
+      {
+        src: "{{ '/assets/movie/movie5.mp4?v=20261029b' | relative_url }}",
+        title: "삶, 우주, 그리고 모든 것에 대한 궁극의 질문",
+        sub: "슈퍼컴퓨터 '깊은 생각'이 750만 년 동안 계산한 끝에 내놓은 답변은 42이다. - 은하수를 여행하는 히치하이커를 위한 안내서"
       }
     ];
 
@@ -589,26 +604,83 @@ hide_header_footer: true
       }, CHAR_INTERVAL_MS);
     }
 
-    if (video1) video1.load();
-    if (video2) video2.load();
-
-    if (textWrap && titleEl && subEl && video1 && video2) {
+    if (textWrap && titleEl && subEl && videoA && videoB) {
       let currentSceneIdx = 0;
+      let activePlayerIdx = 0;
       let isTransitioning = false;
+      let preloadedNextIdx = -1;
+
+      // Preload Scene 1 during the intro animation
+      videoA.src = SCENES[0].src;
+      videoA.load();
+
+      function preloadStandbyPlayer(nextSceneIdx) {
+        if (preloadedNextIdx === nextSceneIdx) return;
+        preloadedNextIdx = nextSceneIdx;
+        const standbyVid = players[1 - activePlayerIdx];
+        standbyVid.pause();
+        standbyVid.src = SCENES[nextSceneIdx].src;
+        standbyVid.preload = "auto";
+        standbyVid.load();
+      }
 
       function playScene(idx) {
         currentSceneIdx = idx;
         isTransitioning = false;
 
         const scene = SCENES[idx];
-        const vid = scene.video;
+        const vid = players[activePlayerIdx];
 
-        vid.currentTime = 0;
-        vid.classList.add("is-active");
-        const playPromise = vid.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(function () {});
+        if (!vid.getAttribute("src") || vid.getAttribute("src") !== scene.src || vid.error) {
+          vid.src = scene.src;
+          vid.load();
+        } else {
+          try {
+            if (vid.readyState > 0) {
+              vid.currentTime = 0;
+            }
+          } catch (e) {}
         }
+
+        vid.muted = true;
+        vid.defaultMuted = true;
+        vid.classList.add("is-active");
+
+        function tryPlay() {
+          const playPromise = vid.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(function () {
+              vid.muted = true;
+              vid.play().catch(function () {});
+            });
+          }
+        }
+
+        if (vid.readyState >= 2) {
+          tryPlay();
+        } else {
+          const onReady = function () {
+            vid.removeEventListener("canplay", onReady);
+            vid.removeEventListener("loadeddata", onReady);
+            if (currentSceneIdx === idx) {
+              tryPlay();
+            }
+          };
+          vid.addEventListener("canplay", onReady);
+          vid.addEventListener("loadeddata", onReady);
+          tryPlay();
+        }
+
+        // Recovery if WEBrick aborted the standby range request
+        vid.onerror = function () {
+          if (currentSceneIdx === idx) {
+            setTimeout(function () {
+              vid.src = scene.src + "&r=" + Date.now();
+              vid.load();
+              vid.play().catch(function () {});
+            }, 200);
+          }
+        };
 
         textWrap.classList.add("is-active");
         runSingleTextMovie(scene);
@@ -618,37 +690,46 @@ hide_header_footer: true
         if (isTransitioning) return;
         isTransitioning = true;
 
-        const currentScene = SCENES[currentSceneIdx];
-        const nextIdx = (currentSceneIdx + 1) % SCENES.length;
+        const currentVid = players[activePlayerIdx];
+        const nextSceneIdx = (currentSceneIdx + 1) % SCENES.length;
+
+        // Ensure standby player has the next scene ready
+        preloadStandbyPlayer(nextSceneIdx);
 
         // 1. Fade out current video & text to black
-        currentScene.video.classList.remove("is-active");
+        currentVid.classList.remove("is-active");
         textWrap.classList.remove("is-active");
 
-        // 2. After fade-out completes, pause old video and fade in next video + restart text animation
+        // 2. After fade-out completes, pause old video, swap active player, and fade in next scene
         setTimeout(function () {
-          currentScene.video.pause();
+          currentVid.pause();
           titleEl.textContent = "";
           subEl.textContent = "";
-          playScene(nextIdx);
+          activePlayerIdx = 1 - activePlayerIdx;
+          playScene(nextSceneIdx);
         }, 850);
       }
 
-      // Attach smooth pre-end fade trigger and ended fallback to each video
-      SCENES.forEach(function (scene, idx) {
-        const vid = scene.video;
+      // Attach timeupdate (for preloading & smooth pre-end fade) and ended fallback to both players
+      players.forEach(function (vid, pIdx) {
         if (!vid) return;
 
         vid.addEventListener("timeupdate", function () {
-          if (currentSceneIdx === idx && !isTransitioning && vid.duration > 0) {
-            if (vid.duration - vid.currentTime <= 0.85) {
-              transitionToNextScene();
-            }
+          if (activePlayerIdx !== pIdx || isTransitioning || !(vid.duration > 0)) return;
+
+          const remaining = vid.duration - vid.currentTime;
+          // Start preloading the next video on the standby player once current video is halfway or within 5s of ending
+          if (vid.currentTime >= 2.0 || remaining <= 5.0) {
+            preloadStandbyPlayer((currentSceneIdx + 1) % SCENES.length);
+          }
+
+          if (remaining <= 0.85) {
+            transitionToNextScene();
           }
         });
 
         vid.addEventListener("ended", function () {
-          if (currentSceneIdx === idx && !isTransitioning) {
+          if (activePlayerIdx === pIdx && !isTransitioning) {
             transitionToNextScene();
           }
         });
