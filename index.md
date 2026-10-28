@@ -10,6 +10,7 @@ hide_header_footer: true
 <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="video" href="{{ '/assets/movie1.mp4' | relative_url }}" type="video/mp4">
+<link rel="preload" as="video" href="{{ '/assets/movie2.mp4' | relative_url }}" type="video/mp4">
 
 <style>
   /* Reset theme spacing on /homepage/ */
@@ -79,7 +80,7 @@ hide_header_footer: true
     overflow: visible;
   }
 
-  /* Post-menu Background Video (assets/movie1.mp4) */
+  /* Post-menu Background Videos (assets/movie1.mp4 & assets/movie2.mp4) */
   .swf-bg-video {
     position: absolute;
     inset: 0;
@@ -90,7 +91,7 @@ hide_header_footer: true
     z-index: 2;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.8s ease;
+    transition: opacity 0.85s ease;
     background-color: #000000;
   }
 
@@ -112,7 +113,7 @@ hide_header_footer: true
     justify-content: flex-start;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.6s ease;
   }
 
   .text-movie-wrap.is-active {
@@ -392,8 +393,9 @@ hide_header_footer: true
       </svg>
     </div>
 
-    <!-- Post-menu Background Video (preloaded during intro, plays after menu appears) -->
-    <video class="swf-bg-video" id="swf-bg-video" src="{{ '/assets/movie1.mp4' | relative_url }}" muted playsinline loop preload="auto" aria-hidden="true"></video>
+    <!-- Post-menu Background Videos (preloaded during intro, play sequentially with fade out/in) -->
+    <video class="swf-bg-video" id="swf-bg-video-1" src="{{ '/assets/movie1.mp4' | relative_url }}" muted playsinline preload="auto" aria-hidden="true"></video>
+    <video class="swf-bg-video" id="swf-bg-video-2" src="{{ '/assets/movie2.mp4' | relative_url }}" muted playsinline preload="auto" aria-hidden="true"></video>
 
     <!-- Post-menu Top-Left Text Movie Animation (assets/text-movie.mp4 style) -->
     <div class="text-movie-wrap" id="text-movie-wrap" aria-live="polite">
@@ -493,36 +495,46 @@ hide_header_footer: true
     requestAnimationFrame(animateFill);
 
     // =========================================================================
-    // Post-menu Text Movie Animation (0.05s per character for X -> - -> Text)
-    // Runs once after the bottom menu finishes appearing
+    // Post-menu Sequential Video + Text Movie Animation
+    // Scene 1 (movie1.mp4) -> Fade Out / Fade In -> Scene 2 (movie2.mp4)
     // =========================================================================
     const textWrap = document.getElementById("text-movie-wrap");
     const titleEl = document.getElementById("text-movie-title");
     const subEl = document.getElementById("text-movie-sub");
+    const video1 = document.getElementById("swf-bg-video-1");
+    const video2 = document.getElementById("swf-bg-video-2");
 
-    // Arbitrary sample text (can be replaced with any desired text)
-    const TEXT_ITEM = {
-      title: "달이 아름답네요 (月が綺麗ですね).",
-      sub: "워메 소새끼는 '달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다."
-    };
+    const SCENES = [
+      {
+        video: video1,
+        title: "달이 아름답네요 (月が綺麗ですね).",
+        sub: "워메 소새끼는 '달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다."
+      },
+      {
+        video: video2,
+        title: "대책없는 희망, 무책임한 위로",
+        sub: "오상식 차장은 '현실'을 바꿀 수 없는 무력함을 이야기 했다."
+      }
+    ];
 
-    const CHAR_INTERVAL_MS = 30; // 0.02s per character
+    const CHAR_INTERVAL_MS = 30;
+    let activeTextTimer = null;
 
     function getStepText(target, stepIndex) {
       const len = target.length;
       if (stepIndex <= 0) {
         return "";
       }
-      // 1. Sequentially grow 'X' up to target.length (0.05s per char)
+      // 1. Sequentially grow 'X' up to target.length
       if (stepIndex <= len) {
         return "X".repeat(stepIndex);
       }
-      // 2. Sequentially replace each 'X' with '-' (0.05s per char)
+      // 2. Sequentially replace each 'X' with '-'
       if (stepIndex <= len * 2) {
         const dashCount = stepIndex - len;
         return "-".repeat(dashCount) + "X".repeat(len - dashCount);
       }
-      // 3. Sequentially replace each '-' with the actual character (0.05s per char)
+      // 3. Sequentially replace each '-' with the actual character
       if (stepIndex <= len * 3) {
         const charCount = stepIndex - len * 2;
         return target.slice(0, charCount) + "-".repeat(len - charCount);
@@ -532,6 +544,11 @@ hide_header_footer: true
     }
 
     function runSingleTextMovie(item) {
+      if (activeTextTimer) {
+        clearInterval(activeTextTimer);
+        activeTextTimer = null;
+      }
+
       const targetTitle = item.title;
       const targetSub = item.sub;
       const maxSteps = Math.max(targetTitle.length, targetSub.length) * 3;
@@ -542,7 +559,7 @@ hide_header_footer: true
       titleEl.classList.add("is-placeholder");
       subEl.classList.add("is-placeholder");
 
-      const timer = setInterval(function () {
+      activeTextTimer = setInterval(function () {
         currentStep += 1;
 
         // Keep dim grey during initial 'X' growth, switch to main color once '-' / text conversion starts
@@ -562,7 +579,8 @@ hide_header_footer: true
         subEl.textContent = getStepText(targetSub, currentStep);
 
         if (currentStep >= maxSteps) {
-          clearInterval(timer);
+          clearInterval(activeTextTimer);
+          activeTextTimer = null;
           titleEl.classList.remove("is-placeholder");
           subEl.classList.remove("is-placeholder");
           titleEl.textContent = targetTitle;
@@ -571,24 +589,74 @@ hide_header_footer: true
       }, CHAR_INTERVAL_MS);
     }
 
-    // Start the background video and top-left text movie animation once right after the bottom menu finishes appearing (~5.45s)
-    const bgVideo = document.getElementById("swf-bg-video");
-    if (bgVideo) {
-      bgVideo.load();
-    }
+    if (video1) video1.load();
+    if (video2) video2.load();
 
-    if (textWrap && titleEl && subEl) {
-      setTimeout(function () {
-        if (bgVideo) {
-          bgVideo.currentTime = 0;
-          bgVideo.classList.add("is-active");
-          const playPromise = bgVideo.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(function () {});
-          }
+    if (textWrap && titleEl && subEl && video1 && video2) {
+      let currentSceneIdx = 0;
+      let isTransitioning = false;
+
+      function playScene(idx) {
+        currentSceneIdx = idx;
+        isTransitioning = false;
+
+        const scene = SCENES[idx];
+        const vid = scene.video;
+
+        vid.currentTime = 0;
+        vid.classList.add("is-active");
+        const playPromise = vid.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function () {});
         }
+
         textWrap.classList.add("is-active");
-        runSingleTextMovie(TEXT_ITEM);
+        runSingleTextMovie(scene);
+      }
+
+      function transitionToNextScene() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        const currentScene = SCENES[currentSceneIdx];
+        const nextIdx = (currentSceneIdx + 1) % SCENES.length;
+
+        // 1. Fade out current video & text to black
+        currentScene.video.classList.remove("is-active");
+        textWrap.classList.remove("is-active");
+
+        // 2. After fade-out completes, pause old video and fade in next video + restart text animation
+        setTimeout(function () {
+          currentScene.video.pause();
+          titleEl.textContent = "";
+          subEl.textContent = "";
+          playScene(nextIdx);
+        }, 850);
+      }
+
+      // Attach smooth pre-end fade trigger and ended fallback to each video
+      SCENES.forEach(function (scene, idx) {
+        const vid = scene.video;
+        if (!vid) return;
+
+        vid.addEventListener("timeupdate", function () {
+          if (currentSceneIdx === idx && !isTransitioning && vid.duration > 0) {
+            if (vid.duration - vid.currentTime <= 0.85) {
+              transitionToNextScene();
+            }
+          }
+        });
+
+        vid.addEventListener("ended", function () {
+          if (currentSceneIdx === idx && !isTransitioning) {
+            transitionToNextScene();
+          }
+        });
+      });
+
+      // Start Scene 1 right after the bottom menu finishes appearing (~5.45s)
+      setTimeout(function () {
+        playScene(0);
       }, 5450);
     }
   })();
