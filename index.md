@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ARIARS.COM
+title: ariars.com
 permalink: /
 hide_header_footer: true
 ---
@@ -8,7 +8,7 @@ hide_header_footer: true
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="preload" as="video" href="{{ '/assets/movie/movie1.mp4?v=20261029b' | relative_url }}" type="video/mp4">
 
 <style>
@@ -236,12 +236,14 @@ hide_header_footer: true
   }
 
   .swf-brand__ariars {
-    font-family: "Spectral", Georgia, serif;
+    font-family: "Spectral", "Times New Roman", Georgia, serif;
     font-size: 32px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
     line-height: 1;
+    font-weight: 700;
+    letter-spacing: -1px;
     color: #1c1c1c;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Center Menu: Home | About | Pages | Category | Tags */
@@ -420,15 +422,15 @@ hide_header_footer: true
           <span class="swf-nav__sep">|</span>
         </li>
         <li class="swf-nav__item">
-          <a class="swf-nav__link" href="{{ '/about/' | relative_url }}">About</a>
+          <a class="swf-nav__link" href="{{ '/design/' | relative_url }}">Design</a>
           <span class="swf-nav__sep">|</span>
         </li>
         <li class="swf-nav__item">
-          <a class="swf-nav__link" href="{{ '/Program/' | relative_url }}">Pages</a>
+          <a class="swf-nav__link" href="{{ '/program/' | relative_url }}">Pages</a>
           <span class="swf-nav__sep">|</span>
         </li>
         <li class="swf-nav__item">
-          <a class="swf-nav__link" href="{{ '/categories/' | relative_url }}">Category</a>
+          <a class="swf-nav__link" href="{{ '/categories/' | relative_url }}">Categories</a>
           <span class="swf-nav__sep">|</span>
         </li>
         <li class="swf-nav__item">
@@ -508,7 +510,7 @@ hide_header_footer: true
       {
         src: "{{ '/assets/movie/movie1.mp4?v=20261029b' | relative_url }}",
         title: "달이 아름답네요. (月が綺麗ですね).",
-        sub: "'달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다. - 오매 소새끼"
+        sub: "'달이 아름답네요.'라고 상대에게 표현해도 마음은 전해지는 것이라고 생각했다. - 나쓰메 소세키"
       },
       {
         src: "{{ '/assets/movie/movie2.mp4?v=20261029b' | relative_url }}",
@@ -527,8 +529,8 @@ hide_header_footer: true
       },
       {
         src: "{{ '/assets/movie/movie5.mp4?v=20261029b' | relative_url }}",
-        title: "삶, 우주, 그리고 모든 것에 대한 궁극의 질문",
-        sub: "슈퍼컴퓨터 '깊은 생각'이 750만 년 동안 계산한 끝에 내놓은 답변은 42이다. - 은하수를 여행하는 히치하이커를 위한 안내서"
+        title: "삶, 우주, 그리고 모든 것",
+        sub: "질문의 궁극적인 해답을 찾기 위해 전 우주에서 최고의 컴퓨터 'Deep Thought'가 750만 년 동안 계산한 결과 나온 답변은 42이다. - 더글러스 애덤스 H2G2"
       }
     ];
 
