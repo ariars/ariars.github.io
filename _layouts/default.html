@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ site.lang | default: 'ko' }}">
+﻿<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'ko' }}" class="{% if page.url == '/' or page.is_home %}is-home{% endif %}">
 
 <head>
   <meta charset="utf-8">
@@ -50,11 +50,280 @@
     }
   </script>
 
-  <link rel="stylesheet" href="{{ '/assets/css/main.css?v=20261029' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
   {% if page.url == '/' %}{% seo title=false %}{% else %}{% seo %}{% endif %}
+  {% if page.url == '/' or page.is_home %}
+  <style>
+    /* Home page full-height layout (header + full screen content) */
+    html.is-home,
+    body.is-home {
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      background-color: #202020 !important;
+    }
+
+    body.is-home .global-wrap {
+      background-color: #202020 !important;
+      color: #ffffff !important;
+      height: 100% !important;
+      height: 100dvh !important;
+      min-height: 100dvh !important;
+      display: flex !important;
+      flex-direction: column !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    body.is-home .content {
+      background-color: #202020 !important;
+      flex: 1 1 auto !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    body.is-home .top {
+      display: none !important;
+    }
+
+    /* Header Common Structure & Wipe Animation (overflow: visible to allow mobile dropdown menu) */
+    body.is-home .header {
+      position: relative !important;
+      background: transparent !important;
+      border-bottom: none !important;
+      margin-bottom: 0 !important;
+      flex-shrink: 0 !important;
+      overflow: visible !important;
+      z-index: 100 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    body.is-home .header::before {
+      content: "" !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      transform-origin: left center !important;
+      transform: scaleX(0);
+      animation: headerBgWipe 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+      z-index: 0 !important;
+    }
+
+    body.is-home .header::after {
+      content: "" !important;
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 1px !important;
+      transform-origin: left center !important;
+      transform: scaleX(0);
+      animation: headerBgWipe 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+      z-index: 1 !important;
+    }
+
+    @keyframes headerBgWipe {
+      0% {
+        transform: scaleX(0);
+      }
+      100% {
+        transform: scaleX(1);
+      }
+    }
+
+    body.is-home .header .container,
+    body.is-home .header__inner {
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    /* --- Light Mode Header (White Wipe & Dark Elements) --- */
+    html:not([dark]) body.is-home .header::before {
+      background: #ffffff !important;
+    }
+    html:not([dark]) body.is-home .header::after {
+      background: #ffffff !important;
+    }
+    html:not([dark]) body.is-home .header .logo__link,
+    html:not([dark]) body.is-home .header .nav__link {
+      color: #1a1a1a !important;
+    }
+    html:not([dark]) body.is-home .header .hamburger div,
+    html:not([dark]) body.is-home .header .hamburger div::before,
+    html:not([dark]) body.is-home .header .hamburger div::after {
+      background-color: #1a1a1a !important;
+    }
+    html:not([dark]) body.is-home .header .nav-button .toggle-theme,
+    html:not([dark]) body.is-home .header .nav-button .bookmark-toggle,
+    html:not([dark]) body.is-home .header .nav-button .search-button {
+      color: #1a1a1a !important;
+    }
+    html:not([dark]) body.is-home .header .nav-button svg {
+      color: #1a1a1a !important;
+    }
+    html:not([dark]) body.is-home .header .nav-button svg path,
+    html:not([dark]) body.is-home .header .nav-button svg circle {
+      stroke: #1a1a1a !important;
+    }
+    html:not([dark]) body.is-home .header .nav-button .bookmark-toggle svg path {
+      stroke: #1a1a1a !important;
+    }
+    html:not([dark]) body.is-home .header .nav-button .toggle-moon svg path,
+    html:not([dark]) body.is-home .header .nav-button .search-button svg path {
+      fill: none !important;
+    }
+
+    /* --- Dark Mode Header (Dark Wipe & Light Elements like /design/ page) --- */
+    html[dark] body.is-home .header::before {
+      background: var(--dark, #202020) !important;
+    }
+    html[dark] body.is-home .header::after {
+      background: var(--border-color, #3e3e3e) !important;
+    }
+    html[dark] body.is-home .header .logo__link,
+    html[dark] body.is-home .header .nav__link {
+      color: var(--heading-font-color, #f0f0f0) !important;
+    }
+    html[dark] body.is-home .header .hamburger div,
+    html[dark] body.is-home .header .hamburger div::before,
+    html[dark] body.is-home .header .hamburger div::after {
+      background-color: var(--heading-font-color, #f0f0f0) !important;
+    }
+    html[dark] body.is-home .header .nav-button .toggle-theme,
+    html[dark] body.is-home .header .nav-button .bookmark-toggle,
+    html[dark] body.is-home .header .nav-button .search-button {
+      color: var(--heading-font-color, #f0f0f0) !important;
+    }
+    html[dark] body.is-home .header .nav-button svg {
+      color: var(--heading-font-color, #f0f0f0) !important;
+    }
+    html[dark] body.is-home .header .nav-button svg path,
+    html[dark] body.is-home .header .nav-button svg circle {
+      stroke: var(--heading-font-color, #f0f0f0) !important;
+    }
+    html[dark] body.is-home .header .nav-button .bookmark-toggle svg path {
+      stroke: var(--heading-font-color, #f0f0f0) !important;
+    }
+    html[dark] body.is-home .header .nav-button .toggle-sun svg path,
+    html[dark] body.is-home .header .nav-button .toggle-sun svg circle,
+    html[dark] body.is-home .header .nav-button .search-button svg path {
+      fill: none !important;
+    }
+
+    /* Shared Quick Menu base */
+    body.is-home .header .nav-button {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    body.is-home .header .nav-button .toggle-theme,
+    body.is-home .header .nav-button .bookmark-toggle,
+    body.is-home .header .nav-button .search-button {
+      background: transparent !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
+      transition: color 0.2s ease !important;
+    }
+
+    body.is-home .header .nav__link:hover,
+    body.is-home .header .nav-button .toggle-theme:hover,
+    body.is-home .header .nav-button .bookmark-toggle:hover,
+    body.is-home .header .nav-button .search-button:hover {
+      color: var(--primary-color) !important;
+      background: transparent !important;
+      transform: none !important;
+    }
+
+    body.is-home .header .nav-button .toggle-theme:hover svg path,
+    body.is-home .header .nav-button .toggle-theme:hover svg circle,
+    body.is-home .header .nav-button .bookmark-toggle:hover svg path,
+    body.is-home .header .nav-button .search-button:hover svg path {
+      stroke: var(--primary-color) !important;
+    }
+
+    /* Staggered Blur Reveal */
+    @keyframes blurReveal {
+      0% {
+        opacity: 0;
+        filter: blur(14px);
+        transform: translateY(-8px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    /* 1. Logo */
+    body.is-home .header .logo {
+      opacity: 0;
+      animation: blurReveal 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards !important;
+    }
+
+    /* 2. Menu: Desktop animate main-nav, Mobile animate hamburger */
+    @media (min-width: 1025px) {
+      body.is-home .header .main-nav {
+        opacity: 0;
+        animation: blurReveal 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.55s forwards !important;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      body.is-home .header .hamburger {
+        display: flex !important;
+        align-items: center !important;
+        order: 1 !important;
+        cursor: pointer !important;
+        z-index: 10 !important;
+        opacity: 0;
+        animation: blurReveal 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.55s forwards !important;
+      }
+
+      body.is-home .header .nav-button {
+        margin-left: auto !important;
+      }
+
+      body.is-home .header .main-nav {
+        position: absolute !important;
+        top: 64px !important;
+        right: 16px !important;
+        z-index: 1000 !important;
+      }
+
+      body.is-home .header .main-nav:not(.is-visible) {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+      }
+
+      body.is-home .header .main-nav.is-visible {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+    }
+
+    /* 3. Quick Menu */
+    body.is-home .header .nav-button {
+      opacity: 0;
+      animation: blurReveal 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards !important;
+    }
+  </style>
+  {% endif %}
 </head>
 
-<body>
+<body class="{% if page.url == '/' or page.is_home %}is-home{% endif %}">
 
   <!-- begin global wrap -->
   <div class="global-wrap">
@@ -84,15 +353,10 @@
                     <a href="{{ '/design/' | relative_url }}" class="nav__link {% if page.url contains '/design' %}active-link{% endif %}">Design</a>
                   </li>
                   <li class="nav__item">
-                    <a href="{{ '/design/' | relative_url }}" class="nav__link {% if page.url contains '/pages' %}active-link{% endif %}">Pages</a>
+                    <a href="{{ '/blog/' | relative_url }}" class="nav__link {% if page.url contains '/blog' %}active-link{% endif %}">Blog</a>
                   </li>
-                  <li class="nav__item">
+                  <li class="nav__item ">
                     <a href="{{ '/categories/' | relative_url }}" class="nav__link {% if page.url contains '/categories' or page.url contains '/categorys' %}active-link{% endif %}">Category</a>
-                    <div class="dropdown-menu">
-                      <a href="{{ '/Program/' | relative_url }}" class="nav__link">Program</a>
-                      <a href="{{ '/Design/' | relative_url }}" class="nav__link">Design</a>
-                      <a href="{{ '/AI/' | relative_url }}" class="nav__link">AI</a>
-                    </div>
                   </li>
                   <li class="nav__item">
                     <a href="{{ '/tags/' | relative_url }}" class="nav__link {% if page.url contains '/tags' %}active-link{% endif %}">Tag</a>

@@ -1,14 +1,15 @@
 ---
 layout: post
-title: "Why We Continue to Romanticize Bookstores"
-date: 2024-05-03 12:01:35 +0000
-tags: [Lifestyle, Philosophy]
-categories: [Program]
-image: /assets/images/16.jpg
-image_caption: "✍️ The beginning of a new wonderful day."
+title: "Hello, ariars studio"
+permalink: /blog/hello-world
+date: 2026-10-31 20:16:00 +0000
+tags: [Life]
+categories: [Life]
+image: /post/20261031/1.jpg
+image_caption: ""
 featured: false
 video: false
-description: "Physical spaces dedicated to books offer a tactile sense of discovery that algorithms still cannot replicate."
+description: ""
 ---
 
 <div class="toc-wrapper">

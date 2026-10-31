@@ -1,5 +1,6 @@
+{% unless page.hide_footer or page.hide_header_footer %}
 <!-- begin footer -->
-<footer class="footer" {% if page.hide_header_footer %}style="display: none !important;"{% endif %}>
+<footer class="footer">
   <div class="container">
     <!-- Main Footer Content -->
     <div class="footer__main">
@@ -36,3 +37,4 @@
   </div>
 </footer>
 <!-- end footer -->
+{% endunless %}

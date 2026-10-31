@@ -4,7 +4,7 @@ lang: ko
 locale: ko_KR
 baseurl: ""
 url: "https://ariars.github.io"
-permalink: /:title
+permalink: /blog/:title/
 future: true
 
 plugins:
