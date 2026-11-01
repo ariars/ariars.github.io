@@ -1,11 +1,11 @@
----
+﻿---
 layout: post
 title: "블로그를 시작하며"
 permalink: /blog/life/hello-world
 date: 2026-10-31 20:16:00 +0000
 tags: [일상, 생각]
 categories: [Life]
-image: /blog/life/asset/hello-world-cover.jpg
+image: /assets/posts/life/hello-world-cover.jpg
 image_caption: ""
 featured: true
 video: false
@@ -35,3 +35,4 @@ SNS나 플랫폼에 짧게 흩뿌려지는 글 대신, 조금은 느리더라도
   </svg>
   <span>이 글은 AI(인공지능)의 도움을 받아 작성되었습니다.</span>
 </div>
+

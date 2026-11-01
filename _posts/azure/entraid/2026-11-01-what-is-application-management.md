@@ -1,11 +1,11 @@
----
+﻿---
 layout: post
 title: "Microsoft Entra ID - 애플리케이션 관리"
 permalink: /blog/azure/entraid/what-is-application-management
 date: 2026-11-01 16:50:00 +0900
 tags: [Azure, EntraID, 보안, 입문]
 categories: [Azure, EntraID]
-image: /blog/azure/entraid/asset/what-is-application-management-cover.svg
+image: /assets/posts/azure/entraid/what-is-application-management-cover.svg
 image_caption: ""
 featured: false
 video: false
@@ -19,7 +19,7 @@ description: "업무용 프로그램을 한곳에 모아 연결하고, 안전하
 
 ## 1. 애플리케이션 관리란 무엇인가?
 
-![Microsoft Entra ID 애플리케이션 관리 개요](/blog/azure/entraid/asset/what-is-application-management-cover.svg)
+![Microsoft Entra ID 애플리케이션 관리 개요](/assets/posts/azure/entraid/what-is-application-management-cover.svg)
 
 조직에서는 메일, 문서 작성, 협업 도구, 회계 시스템 등 수많은 프로그램을 매일 사용합니다.
 
@@ -39,7 +39,7 @@ Microsoft Entra ID의 **애플리케이션 관리(Application Management)**는 �
 
 Microsoft Entra ID에서 프로그램을 관리하는 과정은 프로그램의 도입부터 폐기까지 총 6단계의 일정한 흐름을 따릅니다.
 
-![애플리케이션 관리 6단계 수명 주기](/blog/azure/entraid/asset/what-is-application-management-01-lifecycle.svg)
+![애플리케이션 관리 6단계 수명 주기](/assets/posts/azure/entraid/what-is-application-management-01-lifecycle.svg)
 
 ### 1단계: 등록 및 연결 (추가하기)
 조직에서 사용할 프로그램을 Entra ID 시스템에 인식시키는 단계입니다.
@@ -77,7 +77,7 @@ Microsoft Entra ID에서 프로그램을 관리하는 과정은 프로그램의 
 
 애플리케이션 관리에서 가장 중요한 두 가지 핵심 기능은 **싱글 사인온**과 **사용자 프로비저닝**입니다.
 
-![싱글 사인온과 계정 프로비저닝의 동작 구조](/blog/azure/entraid/asset/what-is-application-management-02-sso-provisioning.svg)
+![싱글 사인온과 계정 프로비저닝의 동작 구조](/assets/posts/azure/entraid/what-is-application-management-02-sso-provisioning.svg)
 
 ### 싱글 사인온 (SSO, Single Sign-On)
 **단 한 번의 로그인으로 조직의 모든 프로그램에 추가 암호 입력 없이 바로 접속하는 기술**입니다.
@@ -99,7 +99,7 @@ Microsoft Entra ID에서 프로그램을 관리하는 과정은 프로그램의 
 
 중앙 집중식 관리의 가장 큰 장점은 강력한 보안 규칙을 모든 프로그램에 빈틈없이 적용할 수 있다는 점입니다.
 
-![애플리케이션 보안 통제와 모니터링](/blog/azure/entraid/asset/what-is-application-management-03-security-monitoring.svg)
+![애플리케이션 보안 통제와 모니터링](/assets/posts/azure/entraid/what-is-application-management-03-security-monitoring.svg)
 
 ### 조건부 액세스 (Conditional Access)
 정확한 아이디와 비밀번호를 입력했다고 해서 무조건 접속을 허용하지 않고, **접속 환경의 안전성을 실시간으로 확인한 뒤에만 프로그램 실행을 허락하는 지능형 통제 장치**입니다.
@@ -137,3 +137,4 @@ Microsoft Entra ID에서 프로그램을 관리하는 과정은 프로그램의 
 | **수명 주기** | ① 등록 및 연결 &rarr; ② 접근 권한 관리 &rarr; ③ 속성 구성 &rarr; ④ 보안 규칙 적용 &rarr; ⑤ 기록 감시 &rarr; ⑥ 사용 중단 및 정리 |
 | **핵심 기술** | **싱글 사인온(SSO)** (단 한 번의 로그인) & **프로비저닝** (입·퇴사 시 계정 자동 생성 및 삭제) |
 | **보안 강화** | **조건부 액세스** (안전한 기기·환경에서만 접속 허용) & **다단계 인증(MFA)** |
+

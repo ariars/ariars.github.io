@@ -1,11 +1,11 @@
----
+﻿---
 layout: post
 title: "Microsoft Entra ID"
 permalink: /blog/azure/entraid/what-is-entra-id
 date: 2026-11-01 14:00:00 +0900
 tags: [Azure, EntraID, 보안]
 categories: [Azure, EntraID]
-image: /blog/azure/entraid/asset/what-is-entra-id-cover.svg
+image: /assets/posts/azure/entraid/what-is-entra-id-cover.svg
 image_caption: ""
 featured: true
 video: false
@@ -19,7 +19,7 @@ description: "Microsoft Entra ID가 무엇이고 어떤 일을 하는지, 꼭 �
 
 ## 1. Microsoft Entra ID란?
 
-![Microsoft Entra ID의 위치](/blog/azure/entraid/asset/what-is-entra-id-01-overview.svg)
+![Microsoft Entra ID의 위치](/assets/posts/azure/entraid/what-is-entra-id-01-overview.svg)
 
 회사에서 일을 하려면 메일, 메신저, 문서, 업무 프로그램 등 여러 서비스에 접속해야 합니다. 이때 **접속하려는 사람이 정말 그 회사 직원이 맞는지 확인하고, 그 사람에게 허락된 서비스만 쓰게 해 주는 관리 시스템**이 필요합니다.
 
@@ -36,7 +36,7 @@ Microsoft Entra ID는 바로 이 역할을 하는 **클라우드 기반의 ID �
 
 ## 2. 가장 중요한 두 가지 일 — 인증과 권한 부여
 
-![인증과 권한 부여는 순서대로 일어납니다](/blog/azure/entraid/asset/what-is-entra-id-02-authn-authz.svg)
+![인증과 권한 부여는 순서대로 일어납니다](/assets/posts/azure/entraid/what-is-entra-id-02-authn-authz.svg)
 
 Entra ID가 하는 일은 크게 두 단계로 나눌 수 있습니다.
 
@@ -76,7 +76,7 @@ Entra ID가 하는 일은 크게 두 단계로 나눌 수 있습니다.
 
 ### 5-1. 다단계 인증 (MFA)
 
-![다단계 인증](/blog/azure/entraid/asset/what-is-entra-id-03-mfa.svg)
+![다단계 인증](/assets/posts/azure/entraid/what-is-entra-id-03-mfa.svg)
 
 비밀번호 하나만으로 로그인하면, 비밀번호가 새어 나갔을 때 다른 사람이 계정을 그대로 쓸 수 있습니다. **다단계 인증(Multifactor Authentication, MFA)**은 **서로 다른 종류의 확인을 두 가지 이상 거치도록** 하는 방식입니다.
 
@@ -98,7 +98,7 @@ Entra ID가 하는 일은 크게 두 단계로 나눌 수 있습니다.
 
 ## 6. 조건부 액세스 — 상황에 따라 다르게 판단하기
 
-![조건부 액세스](/blog/azure/entraid/asset/what-is-entra-id-04-conditional-access.svg)
+![조건부 액세스](/assets/posts/azure/entraid/what-is-entra-id-04-conditional-access.svg)
 
 **조건부 액세스(Conditional Access)**는 로그인할 때의 **상황 정보**를 함께 살펴보고, 관리자가 미리 정해 둔 **정책(규칙)**에 따라 접속을 어떻게 처리할지 결정하는 기능입니다. 마이크로소프트가 말하는 **제로 트러스트(Zero Trust, "아무것도 자동으로 믿지 않고 매번 확인한다")** 보안의 핵심 기능입니다.
 
@@ -192,7 +192,7 @@ Entra ID는 기본 기능은 무료로 제공되고, 고급 기능은 유료 라
 
 ## 13. Microsoft Entra 제품군
 
-![Microsoft Entra 제품군](/blog/azure/entraid/asset/what-is-entra-id-05-entra-family.svg)
+![Microsoft Entra 제품군](/assets/posts/azure/entraid/what-is-entra-id-05-entra-family.svg)
 
 "Microsoft Entra"는 ID와 접속 보안에 관련된 **여러 제품을 묶은 이름**입니다. Entra ID가 그 기반이 됩니다.
 
@@ -236,3 +236,4 @@ Entra ID는 기본 기능은 무료로 제공되고, 고급 기능은 유료 라
   </svg>
   <span>이 글은 AI(인공지능)의 도움을 받아 작성되었습니다.</span>
 </div>
+
