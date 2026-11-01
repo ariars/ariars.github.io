@@ -1,0 +1,21 @@
+title: ariars
+description: ariars github io
+lang: ko
+locale: ko_KR
+baseurl: ""
+url: "https://ariars.github.io"
+permalink: /blog/:title/
+future: true
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+show_downloads: false
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - vendor/

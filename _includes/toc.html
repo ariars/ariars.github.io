@@ -1,0 +1,354 @@
+{% unless page.toc == false %}
+<!-- begin toc -->
+<div class="post-toc-container" id="post-toc-container" style="display: none;">
+  <!-- 본문 상단 인라인 ToC -->
+  <div class="toc-wrapper">
+    <details class="toc" open>
+      <summary class="toc__header">
+        <span class="toc__title">목차</span>
+        <span class="toc__icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </summary>
+      <nav class="toc__nav" aria-label="본문 목차">
+        <ol class="page__toc__list" id="post-toc-inline-list">
+          <!-- 스크립트로 자동 생성 -->
+        </ol>
+      </nav>
+    </details>
+  </div>
+
+  <!-- 스크롤 시 우측 플로팅 목차 버튼 -->
+  <div class="toc-fab" id="toc-fab" title="목차 열기" aria-label="목차 열기">
+    <i class="fa-solid fa-list-ul" aria-hidden="true"></i>
+    <span class="toc-fab__label">목차</span>
+  </div>
+
+  <!-- 목차 오프캔버스 드로어 패널 -->
+  <div class="toc-drawer-overlay" id="toc-drawer-overlay"></div>
+  <aside class="toc-drawer" id="toc-drawer" aria-label="목차 패널">
+    <div class="toc-drawer__head">
+      <div class="toc-drawer__title">
+        <i class="fa-solid fa-list-ul" aria-hidden="true"></i> 목차
+      </div>
+      <button type="button" class="toc-drawer__close" id="toc-drawer-close" aria-label="목차 닫기">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="toc-drawer__body">
+      <ol class="page__toc__list toc-drawer__list" id="post-toc-drawer-list">
+        <!-- 스크립트로 자동 생성 -->
+      </ol>
+    </div>
+  </aside>
+</div>
+
+<style>
+  /* 1. 플로팅 목차 FAB 버튼 (Top 버튼 상단에 배치) */
+  .toc-fab {
+    position: fixed;
+    right: 12px;
+    bottom: 58px;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 12px;
+    font-family: "Source Sans 3", Helvetica Neue, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 36px;
+    border-radius: 999px;
+    background: var(--button-background-color);
+    color: var(--button-color);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+    user-select: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: all 0.25s ease;
+  }
+  .toc-fab.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .toc-fab:hover {
+    background: color-mix(in srgb, var(--button-background-color), black 8%);
+    transform: translateY(-2px);
+  }
+  .toc-fab i {
+    font-size: 12px;
+  }
+
+  /* 2. 목차 드로어 오버레이 */
+  .toc-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 101;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .toc-drawer-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 3. 목차 오프캔버스 드로어 */
+  .toc-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 85vw;
+    z-index: 102;
+    background: var(--background-alt-color);
+    border-left: 1px solid var(--border-color);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  .toc-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .toc-drawer__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .toc-drawer__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Source Sans 3", Helvetica Neue, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--heading-font-color);
+  }
+  .toc-drawer__title i {
+    color: var(--primary-color);
+  }
+  .toc-drawer__close {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: var(--text-alt-color);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color 0.15s ease;
+  }
+  .toc-drawer__close:hover {
+    color: var(--heading-font-color);
+  }
+
+  .toc-drawer__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px 32px;
+  }
+  .toc-drawer__list {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .toc-drawer__list a {
+    display: block;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .toc-drawer__list a.is-active {
+    color: var(--primary-color) !important;
+    font-weight: 700;
+  }
+
+  /* 부드러운 스크롤 */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const content = document.querySelector(".post__content");
+    const container = document.getElementById("post-toc-container");
+    const inlineList = document.getElementById("post-toc-inline-list");
+    const drawerList = document.getElementById("post-toc-drawer-list");
+    const fab = document.getElementById("toc-fab");
+    const drawer = document.getElementById("toc-drawer");
+    const overlay = document.getElementById("toc-drawer-overlay");
+    const closeBtn = document.getElementById("toc-drawer-close");
+
+    if (!content || !container || !inlineList || !drawerList) return;
+
+    // 본문 내 h2, h3 요소 추출
+    const headings = Array.from(content.querySelectorAll("h2, h3"));
+    if (headings.length < 2) return; // 헤딩이 2개 미만이면 목차 미표시
+
+    let currentInlineH2 = null;
+    let currentInlineSub = null;
+    let currentDrawerH2 = null;
+    let currentDrawerSub = null;
+    const trackedItems = [];
+
+    headings.forEach((heading, index) => {
+      // id가 없으면 생성
+      if (!heading.id) {
+        heading.id = "heading-" + index;
+      }
+
+      const title = heading.textContent.trim();
+      const level = heading.tagName.toLowerCase();
+      const id = heading.id;
+
+      // 1. 본문 상단 인라인 ToC 생성
+      const inlineLi = document.createElement("li");
+      const inlineLink = document.createElement("a");
+      inlineLink.href = "#" + id;
+      inlineLink.textContent = title;
+      inlineLi.appendChild(inlineLink);
+
+      if (level === "h2") {
+        inlineList.appendChild(inlineLi);
+        currentInlineH2 = inlineLi;
+        currentInlineSub = null;
+      } else if (level === "h3") {
+        if (!currentInlineSub) {
+          currentInlineSub = document.createElement("ol");
+          if (currentInlineH2) {
+            currentInlineH2.appendChild(currentInlineSub);
+          } else {
+            inlineList.appendChild(currentInlineSub);
+          }
+        }
+        currentInlineSub.appendChild(inlineLi);
+      }
+
+      // 2. 드로어 ToC 생성
+      const drawerLi = document.createElement("li");
+      const drawerLink = document.createElement("a");
+      drawerLink.href = "#" + id;
+      drawerLink.textContent = title;
+      drawerLi.appendChild(drawerLink);
+
+      if (level === "h2") {
+        drawerList.appendChild(drawerLi);
+        currentDrawerH2 = drawerLi;
+        currentDrawerSub = null;
+      } else if (level === "h3") {
+        if (!currentDrawerSub) {
+          currentDrawerSub = document.createElement("ol");
+          if (currentDrawerH2) {
+            currentDrawerH2.appendChild(currentDrawerSub);
+          } else {
+            drawerList.appendChild(currentDrawerSub);
+          }
+        }
+        currentDrawerSub.appendChild(drawerLi);
+      }
+
+      trackedItems.push({
+        heading: heading,
+        drawerLink: drawerLink
+      });
+
+      // 스무스 스크롤 클릭 핸들러 (상단 헤더 높이 90px 보정)
+      const handleJump = function (e) {
+        e.preventDefault();
+        const headerOffset = 90;
+        const targetPos = heading.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: targetPos,
+          behavior: "smooth"
+        });
+        history.replaceState(null, "", "#" + id);
+        closeDrawer();
+      };
+
+      inlineLink.addEventListener("click", handleJump);
+      drawerLink.addEventListener("click", handleJump);
+    });
+
+    // 목차 컨테이너 노출
+    container.style.display = "";
+
+    // 드로어 열기/닫기 제어
+    function openDrawer() {
+      drawer.classList.add("is-open");
+      overlay.classList.add("is-open");
+    }
+    function closeDrawer() {
+      drawer.classList.remove("is-open");
+      overlay.classList.remove("is-open");
+    }
+
+    if (fab) fab.addEventListener("click", openDrawer);
+    if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+    if (overlay) overlay.addEventListener("click", closeDrawer);
+
+    // ESC 키로 닫기
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && drawer.classList.contains("is-open")) {
+        closeDrawer();
+      }
+    });
+
+    // 스크롤 이벤트: 상단 인라인 ToC를 지나쳤을 때 플로팅 FAB 버튼 노출 및 활성 항목 추적
+    const inlineTocWrapper = container.querySelector(".toc-wrapper");
+
+    function handleScroll() {
+      const scrollY = window.pageYOffset;
+
+      // 플로팅 버튼 표시 여부
+      if (inlineTocWrapper) {
+        const rect = inlineTocWrapper.getBoundingClientRect();
+        if (rect.bottom < 60) {
+          fab.classList.add("is-visible");
+        } else {
+          fab.classList.remove("is-visible");
+        }
+      }
+
+      // 현재 섹션 하이라이트
+      const checkPos = scrollY + 140;
+      let activeIdx = -1;
+      for (let i = 0; i < trackedItems.length; i++) {
+        const top = trackedItems[i].heading.getBoundingClientRect().top + scrollY;
+        if (top <= checkPos) {
+          activeIdx = i;
+        } else {
+          break;
+        }
+      }
+
+      trackedItems.forEach((item, i) => {
+        if (i === activeIdx) {
+          item.drawerLink.classList.add("is-active");
+        } else {
+          item.drawerLink.classList.remove("is-active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+  });
+</script>
+<!-- end toc -->
+{% endunless %}

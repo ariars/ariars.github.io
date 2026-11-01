@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1b3d"/>
+      <stop offset="0.55" stop-color="#1d3a8a"/>
+      <stop offset="1" stop-color="#5b4bc4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7fb0ff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#7fb0ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="800" cy="450" r="380" fill="url(#glow)"/>
+
+  <!-- 연결선 -->
+  <g stroke="#9cc0ff" stroke-opacity="0.45" stroke-width="2.5">
+    <line x1="800" y1="450" x2="380" y2="230"/>
+    <line x1="800" y1="450" x2="330" y2="500"/>
+    <line x1="800" y1="450" x2="430" y2="720"/>
+    <line x1="800" y1="450" x2="1220" y2="230"/>
+    <line x1="800" y1="450" x2="1270" y2="500"/>
+    <line x1="800" y1="450" x2="1170" y2="720"/>
+  </g>
+
+  <!-- 왼쪽: 사람/기기 노드 -->
+  <g fill="#ffffff" fill-opacity="0.12" stroke="#cfe0ff" stroke-opacity="0.7" stroke-width="2">
+    <circle cx="380" cy="230" r="54"/>
+    <circle cx="330" cy="500" r="54"/>
+    <circle cx="430" cy="720" r="54"/>
+  </g>
+  <g fill="#e8f0ff">
+    <circle cx="380" cy="215" r="15"/><rect x="356" y="236" width="48" height="26" rx="13"/>
+    <rect x="304" y="478" width="52" height="34" rx="5"/><rect x="296" y="514" width="68" height="6" rx="3"/>
+    <rect x="414" y="694" width="32" height="54" rx="7"/>
+  </g>
+
+  <!-- 오른쪽: 앱 노드 -->
+  <g fill="#ffffff" fill-opacity="0.12" stroke="#cfe0ff" stroke-opacity="0.7" stroke-width="2">
+    <rect x="1166" y="176" width="108" height="108" rx="24"/>
+    <rect x="1216" y="446" width="108" height="108" rx="24"/>
+    <rect x="1116" y="666" width="108" height="108" rx="24"/>
+  </g>
+  <g fill="#e8f0ff">
+    <rect x="1192" y="208" width="56" height="40" rx="5"/><path d="M1192 210 l28 20 l28 -20" stroke="#1d3a8a" stroke-width="4" fill="none"/>
+    <path d="M1246 518 a22 22 0 0 1 4 -40 a28 28 0 0 1 52 8 a18 18 0 0 1 -2 32 z"/>
+    <rect x="1146" y="694" width="20" height="20" rx="4"/><rect x="1172" y="694" width="20" height="20" rx="4"/>
+    <rect x="1146" y="720" width="20" height="20" rx="4"/><rect x="1172" y="720" width="20" height="20" rx="4" fill-opacity="0.5"/>
+  </g>
+
+  <!-- 중앙 방패 -->
+  <circle cx="800" cy="450" r="150" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M800 340 l92 36 v70 c0 66 -44 110 -92 130 c-48 -20 -92 -64 -92 -130 v-70 z" fill="#ffffff"/>
+  <path d="M760 456 l28 28 l54 -60" stroke="#2f6bff" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

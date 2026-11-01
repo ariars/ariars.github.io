@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="960" height="360" rx="20" fill="#f6f7fb"/>
+  <text x="480" y="44" text-anchor="middle" font-size="22" font-weight="700" fill="#22252b">인증과 권한 부여는 순서대로 일어납니다</text>
+
+  <g transform="translate(60,84)">
+    <rect width="380" height="220" rx="18" fill="#ffffff" stroke="#d9dce6"/>
+    <circle cx="56" cy="56" r="26" fill="#2f6bff"/>
+    <text x="56" y="64" text-anchor="middle" font-size="22" font-weight="800" fill="#ffffff">1</text>
+    <text x="98" y="52" font-size="20" font-weight="800" fill="#22252b">인증 (Authentication)</text>
+    <text x="98" y="78" font-size="15" fill="#6b7080">"이 사람이 본인이 맞는가?"</text>
+    <g font-size="15" fill="#4a4f5c">
+      <text x="34" y="134">• 계정과 비밀번호를 확인합니다.</text>
+      <text x="34" y="164">• 필요하면 추가 확인을 요구합니다.</text>
+      <text x="34" y="194">• 통과하면 로그인된 상태가 됩니다.</text>
+    </g>
+  </g>
+
+  <path d="M452 194 H508" stroke="#8a90a2" stroke-width="3" fill="none" marker-end="url(#a)"/>
+
+  <g transform="translate(520,84)">
+    <rect width="380" height="220" rx="18" fill="#ffffff" stroke="#d9dce6"/>
+    <circle cx="56" cy="56" r="26" fill="#7a5cff"/>
+    <text x="56" y="64" text-anchor="middle" font-size="22" font-weight="800" fill="#ffffff">2</text>
+    <text x="98" y="52" font-size="20" font-weight="800" fill="#22252b">권한 부여 (Authorization)</text>
+    <text x="98" y="78" font-size="15" fill="#6b7080">"이 사람은 무엇을 할 수 있는가?"</text>
+    <g font-size="15" fill="#4a4f5c">
+      <text x="34" y="134">• 사용할 수 있는 서비스를 정합니다.</text>
+      <text x="34" y="164">• 보기만 할지, 수정도 할지 정합니다.</text>
+      <text x="34" y="194">• 허락된 범위 밖은 막습니다.</text>
+    </g>
+  </g>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8a90a2"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,314 @@
+---
+layout: page
+title: Tag
+permalink: /tags/
+description: ""
+---
+
+<style>
+  .tag-nav-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .tag-nav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--heading-font-color);
+    background-color: var(--background-color);
+    border: 1px solid var(--border-alt-color);
+    text-decoration: none !important;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+  }
+  .tag-nav-chip:hover,
+  .tag-nav-chip.is-active {
+    background-color: var(--heading-font-color);
+    color: var(--background-alt-color);
+    border-color: var(--heading-font-color);
+  }
+  .tag-nav-chip small {
+    font-size: 12px;
+    opacity: 0.75;
+  }
+  .tag-group {
+    margin-bottom: 44px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    scroll-margin-top: 100px;
+    animation: fadeInTag 0.25s ease-in-out;
+  }
+  .tag-group:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  @keyframes fadeInTag {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .page__content .tag-group .archive__subtitle {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-alt-color);
+    font-size: 24px;
+    color: var(--heading-font-color);
+  }
+  .page__content .tag-group .archive__subtitle small {
+    font-family: "Source Sans 3", sans-serif;
+    font-size: 0.65em;
+    font-weight: 400;
+    color: var(--text-alt-color);
+  }
+  .entries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .list__item .archive__item {
+    padding: 0;
+  }
+  .page__content .archive__item-title {
+    margin: 0 0 6px 0 !important;
+    font-size: 19px !important;
+    line-height: 1.4 !important;
+  }
+  .page__content .archive__item-title a {
+    color: var(--heading-font-color);
+    text-decoration: none !important;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .page__content .archive__item-title a:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+  .page__content .page__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px 0 !important;
+    font-size: 13px;
+    color: var(--text-alt-color);
+  }
+  .page__meta-date,
+  .page__meta-readtime {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .page__meta-sep::before {
+    content: "·";
+    color: var(--text-alt-color);
+  }
+  .page__content .archive__item-excerpt {
+    margin: 0 !important;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-alt-color);
+  }
+  .back-to-top {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-alt-color);
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+  .back-to-top:hover {
+    color: var(--heading-font-color);
+  }
+</style>
+
+<div id="tags-top"></div>
+
+{% assign tags_max = 0 %}
+{% for tag in site.tags %}
+  {% if tag[1].size > tags_max %}
+    {% assign tags_max = tag[1].size %}
+  {% endif %}
+{% endfor %}
+
+{% if site.tags.size > 0 %}
+<div class="tag-nav-chips" id="tag-nav-chips">
+  <button type="button" class="tag-nav-chip is-active" data-tag="all">
+    All <small>({{ site.posts.size }})</small>
+  </button>
+  {% for i in (1..tags_max) reversed %}
+    {% for tag in site.tags %}
+      {% if tag[1].size == i %}
+        <button type="button" class="tag-nav-chip" data-tag="{{ tag[0] | slugify }}">
+          {{ tag[0] }} <small>({{ i }})</small>
+        </button>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>
+
+<div class="tag-groups-wrap" id="tag-groups-wrap">
+  {% for i in (1..tags_max) reversed %}
+    {% for tag in site.tags %}
+      {% if tag[1].size == i %}
+        <section id="{{ tag[0] | slugify }}" class="taxonomy__section tag-group" data-tag="{{ tag[0] | slugify }}">
+          <h2 class="archive__subtitle">
+            {{ tag[0] }} <small>({{ i }})</small>
+          </h2>
+          <div class="entries-list">
+            {% for post in tag[1] %}
+              {% assign words = post.content | strip_html | number_of_words %}
+              {% assign read_minutes = words | divided_by: 180 %}
+              {% if read_minutes < 1 %}{% assign read_minutes = 1 %}{% endif %}
+              <div class="list__item">
+                <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+                  <h3 class="archive__item-title no_toc p-name" itemprop="headline">
+                    <a class="u-url" href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
+                  </h3>
+                  <p class="page__meta">
+                    <span class="page__meta-date">
+                      <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+                    </span>
+                    <span class="page__meta-sep"></span>
+                    <span class="page__meta-readtime">
+                      <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                      {{ read_minutes }} minute read
+                    </span>
+                  </p>
+                  <p class="archive__item-excerpt p-summary" itemprop="description">
+                    {{ post.description | default: post.excerpt | strip_html | truncate: 160 }}
+                  </p>
+                </article>
+              </div>
+            {% endfor %}
+          </div>
+          <a href="#tags-top" class="back-to-top">맨 위로 &uarr;</a>
+        </section>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>
+
+<script>
+  (function () {
+    const chips = document.querySelectorAll(".tag-nav-chip");
+    const groups = document.querySelectorAll(".tag-group");
+    if (!chips.length || !groups.length) return;
+
+    function applyFilter(tagSlug, updateUrl = true) {
+      const targetSlug = (tagSlug || "all").toLowerCase().trim();
+
+      let matched = false;
+
+      // 칩 스타일 업데이트
+      chips.forEach((chip) => {
+        const t = (chip.getAttribute("data-tag") || "").toLowerCase().trim();
+        if (t === targetSlug) {
+          chip.classList.add("is-active");
+          matched = true;
+        } else {
+          chip.classList.remove("is-active");
+        }
+      });
+
+      // 유효하지 않은 태그면 all로 대체
+      const finalSlug = matched ? targetSlug : "all";
+      if (!matched) {
+        const allChip = document.querySelector('.tag-nav-chip[data-tag="all"]');
+        if (allChip) allChip.classList.add("is-active");
+      }
+
+      // 그룹 노출/숨김
+      groups.forEach((group) => {
+        const t = (group.getAttribute("data-tag") || "").toLowerCase().trim();
+        if (finalSlug === "all" || t === finalSlug) {
+          group.style.display = "";
+        } else {
+          group.style.display = "none";
+        }
+      });
+
+      // URL 해시 업데이트
+      if (updateUrl) {
+        if (finalSlug === "all") {
+          if (window.location.hash) {
+            history.replaceState(null, "", window.location.pathname + window.location.search);
+          }
+        } else {
+          history.replaceState(null, "", "#" + finalSlug);
+        }
+      }
+    }
+
+    // 칩 클릭 이벤트
+    chips.forEach((chip) => {
+      chip.addEventListener("click", function (e) {
+        e.preventDefault();
+        const tag = this.getAttribute("data-tag");
+        applyFilter(tag, true);
+      });
+    });
+
+    // 맨 위로 클릭 시 스크롤
+    document.querySelectorAll(".back-to-top").forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    // 초기 로드 시 해시(#tag) 또는 쿼리(?tag=tag) 확인
+    function readInitialTag() {
+      const rawHash = (window.location.hash || "").replace("#", "").trim();
+      let hash = rawHash;
+      try {
+        hash = decodeURIComponent(rawHash);
+      } catch (e) {}
+      if (hash && hash !== "tags-top") return hash;
+
+      const params = new URLSearchParams(window.location.search);
+      const tagParam = params.get("tag");
+      if (tagParam) {
+        try {
+          return decodeURIComponent(tagParam);
+        } catch (e) {
+          return tagParam;
+        }
+      }
+
+      return "all";
+    }
+
+    applyFilter(readInitialTag(), false);
+
+    // 브라우저 뒤로가기/앞으로가기 지원
+    window.addEventListener("hashchange", function () {
+      const rawHash = (window.location.hash || "").replace("#", "").trim();
+      let hash = rawHash;
+      try {
+        hash = decodeURIComponent(rawHash);
+      } catch (e) {}
+      if (hash === "tags-top") return;
+      applyFilter(hash || "all", false);
+    });
+  })();
+</script>
+{% endif %}

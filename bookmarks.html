@@ -1,0 +1,42 @@
+---
+layout: default
+title: Saved Articles
+permalink: /bookmarks/
+---
+
+<div class="container">
+  <div class="row">
+    <div class="col col-9 col-d-12">
+      <div class="bookmarks-page">
+
+        <div class="bookmarks-page__head">
+          <h1 class="bookmarks-page__title">
+            <svg width="28" height="28" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M320,96H112a48.14,48.14,0,0,0-48,48V496L216,368,368,496V144A48.14,48.14,0,0,0,320,96Z"
+              style="fill:none;stroke:currentColor;stroke-linejoin:round;stroke-width:36px" />
+            </svg>
+            Saved Articles
+          </h1>
+          <button id="bookmarks-page-clear" class="button button--secondary bookmarks-button-clear" type="button" disabled>
+            <svg class="bin-icon" width="17px" height="17px" viewBox="0 0 512 512">
+              <path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" fill="none"
+                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+              <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+              <path d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+            </svg>
+            Clear All
+          </button>
+        </div>
+
+        <div id="bookmarks-page-empty" class="bookmarks-page__empty" style="display:none;">
+          <p>You haven't saved any articles yet.<br>Click the <i class="fa-regular fa-bookmark"></i> icon on any article to save it here.</p>
+          <a href="/" class="button button--primary">Browse articles</a>
+        </div>
+
+        <ul id="bookmarks-page-list" class="bookmarks-page-list list-reset"></ul>
+
+      </div>
+    </div>
+  </div>
+</div>

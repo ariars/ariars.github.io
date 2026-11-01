@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="960" height="460" rx="20" fill="#f6f7fb"/>
+  <text x="480" y="44" text-anchor="middle" font-size="22" font-weight="700" fill="#22252b">Microsoft Entra 제품군</text>
+
+  <!-- 중심 -->
+  <g transform="translate(355,80)">
+    <rect width="250" height="96" rx="18" fill="#2f6bff"/>
+    <text x="125" y="44" text-anchor="middle" font-size="20" font-weight="800" fill="#ffffff">Entra ID</text>
+    <text x="125" y="72" text-anchor="middle" font-size="14" fill="#dfe7ff">모든 기능의 기반 (로그인·권한)</text>
+  </g>
+  <path d="M480 176 V206" stroke="#8a90a2" stroke-width="3"/>
+  <path d="M120 206 H840" stroke="#8a90a2" stroke-width="3"/>
+
+  <g font-size="14" fill="#4a4f5c" text-anchor="middle">
+    <g transform="translate(40,226)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">ID Governance</text>
+      <text x="100" y="64">권한의 주기적 점검·회수</text>
+    </g>
+    <g transform="translate(260,226)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">External ID</text>
+      <text x="100" y="64">회사 밖 사용자의 로그인</text>
+    </g>
+    <g transform="translate(480,226)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">Verified ID</text>
+      <text x="100" y="64">위조가 어려운 디지털 증명</text>
+    </g>
+    <g transform="translate(700,226)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">Workload ID</text>
+      <text x="100" y="64">프로그램이 쓰는 계정 관리</text>
+    </g>
+    <g transform="translate(150,338)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">Private Access</text>
+      <text x="100" y="64">사내 시스템 안전 접속</text>
+    </g>
+    <g transform="translate(380,338)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">Internet Access</text>
+      <text x="100" y="64">인터넷 이용 시 위험 차단</text>
+    </g>
+    <g transform="translate(610,338)">
+      <rect width="200" height="92" rx="14" fill="#ffffff" stroke="#d9dce6"/>
+      <text x="100" y="38" font-size="16" font-weight="800" fill="#22252b">ID Protection</text>
+      <text x="100" y="64">위험한 로그인 탐지</text>
+    </g>
+  </g>
+</svg>
