@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="960" height="480" rx="20" fill="#f6f7fb"/>
+  <text x="480" y="46" text-anchor="middle" font-size="22" font-weight="700" fill="#22252b">애플리케이션 관리의 6단계 수명 주기</text>
+
+  <!-- 1행: 1단계, 2단계, 3단계 -->
+  <g transform="translate(40, 80)">
+    <!-- 1단계 -->
+    <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#2f6bff"/>
+    <text x="36" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">1</text>
+    <text x="64" y="42" font-size="18" font-weight="700" fill="#22252b">등록 및 연결</text>
+    <text x="24" y="80" font-size="14" fill="#4a4f5c">
+      <tspan x="24" dy="0">조직에서 사용할 업무 프로그램을</tspan>
+      <tspan x="24" dy="22">중앙 시스템(Entra ID)에 추가하고</tspan>
+      <tspan x="24" dy="22">서로 연결합니다.</tspan>
+    </text>
+  </g>
+
+  <!-- 화살표 1->2 -->
+  <path d="M312 155 H342" stroke="#8a90a2" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <g transform="translate(350, 80)">
+    <!-- 2단계 -->
+    <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#2f6bff"/>
+    <text x="36" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">2</text>
+    <text x="64" y="42" font-size="18" font-weight="700" fill="#22252b">접근 권한 관리</text>
+    <text x="24" y="80" font-size="14" fill="#4a4f5c">
+      <tspan x="24" dy="0">한 번 로그인으로 바로 접속(SSO)하고</tspan>
+      <tspan x="24" dy="22">어떤 사용자나 부서에 사용 권한을</tspan>
+      <tspan x="24" dy="22">줄지 지정합니다.</tspan>
+    </text>
+  </g>
+
+  <!-- 화살표 2->3 -->
+  <path d="M622 155 H652" stroke="#8a90a2" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <g transform="translate(660, 80)">
+    <!-- 3단계 -->
+    <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#2f6bff"/>
+    <text x="36" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">3</text>
+    <text x="64" y="42" font-size="18" font-weight="700" fill="#22252b">속성 및 화면 설정</text>
+    <text x="24" y="80" font-size="14" fill="#4a4f5c">
+      <tspan x="24" dy="0">프로그램 이름, 로고를 꾸미고</tspan>
+      <tspan x="24" dy="22">직원들의 업무 화면에</tspan>
+      <tspan x="24" dy="22">표시할지 여부를 결정합니다.</tspan>
+    </text>
+  </g>
+
+  <!-- 아래로 내려가는 꺾인 화살표 3->4 -->
+  <path d="M790 238 V265 H520 V275" stroke="#8a90a2" stroke-width="3" fill="none"/>
+
+  <!-- 2행: 4단계, 5단계, 6단계 -->
+  <g transform="translate(40, 275)">
+    <!-- 4단계 -->
+    <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#008080"/>
+    <text x="36" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">4</text>
+    <text x="64" y="42" font-size="18" font-weight="700" fill="#22252b">보안 규칙 적용</text>
+    <text x="24" y="80" font-size="14" fill="#4a4f5c">
+      <tspan x="24" dy="0">추가 본인 인증(MFA)을 요구하거나</tspan>
+      <tspan x="24" dy="22">안전한 회사 기기·장소에서만</tspan>
+      <tspan x="24" dy="22">열리도록 통제합니다.</tspan>
+    </text>
+  </g>
+
+  <!-- 화살표 4->5 -->
+  <path d="M312 350 H342" stroke="#8a90a2" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <g transform="translate(350, 275)">
+    <!-- 5단계 -->
+    <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#008080"/>
+    <text x="36" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">5</text>
+    <text x="64" y="42" font-size="18" font-weight="700" fill="#22252b">사용 기록 감시</text>
+    <text x="24" y="80" font-size="14" fill="#4a4f5c">
+      <tspan x="24" dy="0">누가 언제 프로그램에 들어갔는지,</tspan>
+      <tspan x="24" dy="22">이상한 접속 시도는 없었는지</tspan>
+      <tspan x="24" dy="22">기록을 상시 확인합니다.</tspan>
+    </text>
+  </g>
+
+  <!-- 화살표 5->6 -->
+  <path d="M622 350 H652" stroke="#8a90a2" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <g transform="translate(660, 275)">
+    <!-- 6단계 -->
+    <rect x="0" y="0" width="260" height="150" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#e05244"/>
+    <text x="36" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">6</text>
+    <text x="64" y="42" font-size="18" font-weight="700" fill="#22252b">사용 중단 및 정리</text>
+    <text x="24" y="80" font-size="14" fill="#4a4f5c">
+      <tspan x="24" dy="0">더 이상 쓰지 않는 프로그램은</tspan>
+      <tspan x="24" dy="22">권한을 회수하고 안전하게 삭제해</tspan>
+      <tspan x="24" dy="22">방치로 인한 위험을 없앱니다.</tspan>
+    </text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8a90a2"/>
+    </marker>
+  </defs>
+</svg>

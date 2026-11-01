@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="Pretendard, 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="960" height="480" rx="20" fill="#f6f7fb"/>
+  <text x="480" y="44" text-anchor="middle" font-size="22" font-weight="700" fill="#22252b">싱글 사인온(SSO)과 계정 자동 동기화(프로비저닝)</text>
+
+  <!-- 1. 싱글 사인온 영역 -->
+  <g transform="translate(40, 75)">
+    <rect width="880" height="175" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <text x="30" y="34" font-size="17" font-weight="800" fill="#2f6bff">1. 싱글 사인온 (SSO)</text>
+    <text x="30" y="58" font-size="13.5" fill="#666d80">사용자가 회사 계정으로 단 한 번 로그인하면 허가된 모든 프로그램에 비밀번호 재입력 없이 바로 들어갑니다.</text>
+
+    <!-- 사용자 로그인 -->
+    <rect x="30" y="78" width="160" height="74" rx="12" fill="#eef2ff"/>
+    <text x="110" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#22252b">회사 계정 로그인</text>
+    <text x="110" y="134" text-anchor="middle" font-size="12.5" fill="#666d80">아이디 / 암호 1회 입력</text>
+
+    <path d="M200 115 H255" stroke="#2f6bff" stroke-width="2.5" fill="none" marker-end="url(#blueArrow)"/>
+
+    <!-- Entra ID 중앙 인증 -->
+    <rect x="265" y="78" width="180" height="74" rx="12" fill="#2f6bff"/>
+    <text x="355" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Microsoft Entra ID</text>
+    <text x="355" y="134" text-anchor="middle" font-size="12.5" fill="#dfe7ff">신원 확인 완료 확인증 발급</text>
+
+    <path d="M455 115 H510" stroke="#2f6bff" stroke-width="2.5" fill="none" marker-end="url(#blueArrow)"/>
+
+    <!-- 각 업무 프로그램들 -->
+    <g transform="translate(520, 78)">
+      <rect x="0" y="0" width="105" height="74" rx="10" fill="#f0fdf4" stroke="#86efac"/>
+      <text x="52" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#166534">메일·메신저</text>
+      <text x="52" y="56" text-anchor="middle" font-size="11" fill="#15803d">즉시 접속 ✓</text>
+
+      <rect x="115" y="0" width="105" height="74" rx="10" fill="#f0fdf4" stroke="#86efac"/>
+      <text x="167" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#166534">문서 도구</text>
+      <text x="167" y="56" text-anchor="middle" font-size="11" fill="#15803d">즉시 접속 ✓</text>
+
+      <rect x="230" y="0" width="115" height="74" rx="10" fill="#f0fdf4" stroke="#86efac"/>
+      <text x="287" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#166534">사내 업무 프로그램</text>
+      <text x="287" y="56" text-anchor="middle" font-size="11" fill="#15803d">즉시 접속 ✓</text>
+    </g>
+  </g>
+
+  <!-- 2. 프로비저닝 영역 -->
+  <g transform="translate(40, 270)">
+    <rect width="880" height="185" rx="16" fill="#ffffff" stroke="#d9dce6" stroke-width="1.5"/>
+    <text x="30" y="34" font-size="17" font-weight="800" fill="#0284c7">2. 계정 자동 동기화 (프로비저닝)</text>
+    <text x="30" y="58" font-size="13.5" fill="#666d80">중앙 시스템에서 사용자의 입사나 퇴사가 처리되면, 연결된 모든 외부 프로그램의 계정도 자동으로 생성되거나 차단됩니다.</text>
+
+    <!-- 사용자 상태 변경 -->
+    <g transform="translate(30, 78)">
+      <rect x="0" y="0" width="180" height="84" rx="12" fill="#f0f9ff" stroke="#bae6fd"/>
+      <text x="90" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#0369a1">조직 인사 변경</text>
+      <text x="90" y="54" text-anchor="middle" font-size="12" fill="#0284c7">• 신규 입사 처리</text>
+      <text x="90" y="72" text-anchor="middle" font-size="12" fill="#0284c7">• 부서 이동 / 퇴사 처리</text>
+    </g>
+
+    <path d="M220 120 H275" stroke="#0284c7" stroke-width="2.5" fill="none" marker-end="url(#skyArrow)"/>
+
+    <!-- Entra ID 자동 제어 -->
+    <g transform="translate(285, 78)">
+      <rect x="0" y="0" width="180" height="84" rx="12" fill="#0284c7"/>
+      <text x="90" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Entra ID 프로비저닝</text>
+      <text x="90" y="54" text-anchor="middle" font-size="12" fill="#e0f2fe">모든 연결 프로그램에</text>
+      <text x="90" y="72" text-anchor="middle" font-size="12" fill="#e0f2fe">변경 사항 실시간 전송</text>
+    </g>
+
+    <path d="M475 120 H530" stroke="#0284c7" stroke-width="2.5" fill="none" marker-end="url(#skyArrow)"/>
+
+    <!-- 결과 -->
+    <g transform="translate(540, 78)">
+      <rect x="0" y="0" width="310" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="20" y="32" font-size="13" font-weight="700" fill="#334155">자동 처리 결과</text>
+      <text x="20" y="54" font-size="12.5" fill="#475569">✓ 입사 시: 수십 개 업무 프로그램 계정 자동 생성</text>
+      <text x="20" y="74" font-size="12.5" fill="#e11d48">✗ 퇴사 시: 모든 프로그램 접속 권한 동시 즉시 차단</text>
+    </g>
+  </g>
+
+  <defs>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6bff"/>
+    </marker>
+    <marker id="skyArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+</svg>
